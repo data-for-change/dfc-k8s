@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: argocd-repo-server
+spec:
+  template:
+    spec:
+      containers:
+      - name: argocd-repo-server
+        # Built from apps/argocd-install/plugin Jun 16, 2022
+        image: ghcr.io/data-for-change/data-for-change-k8s-argocd:123456
+        volumeMounts:
+        - name: custom-tools
+          mountPath: /usr/local/bin/argocd-data-for-change-plugin
+          subPath: argocd-data-for-change-plugin
+      volumes:
+      - name: custom-tools
+        emptyDir: {}
+      initContainers:
+      - name: download-tools
+        image: alpine:3.8
+        command: [sh, -c]
+        args:
+          - >-
+            wget -O argocd-data-for-change-plugin
+            https://raw.githubusercontent.com/data-for-change/data-for-change-k8s/master/apps/argocd-install/argocd-data-for-change-plugin.py &&
+            chmod +x argocd-data-for-change-plugin &&
+            mv argocd-data-for-change-plugin /custom-tools/
+        volumeMounts:
+          - mountPath: /custom-tools
+            name: custom-tools
+
+      automountServiceAccountToken: true
+      serviceAccountName: argocd-server

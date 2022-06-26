@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-cm
+data:
+  url: "https://argocd.data-for-change.org.il"
+  dex.config: |
+    connectors:
+      - type: github
+        id: github
+        name: GitHub
+        config:
+          clientID: ""
+          clientSecret: ""
+          orgs:
+          - name: data-for-change
+            teams:
+            - argocd-admins
+            - argocd-users
+  configManagementPlugins: |
+    - name: argocd-vault-plugin-helm-with-args
+      init:
+        command: ["argocd-data-for-change-plugin", "init", "."]
+      generate:
+        command: ["sh", "-c"]
+        args: ['argocd-data-for-change-plugin generate . "$ARGOCD_APP_NAME" ${helm_args}']
