@@ -179,3 +179,9 @@ apps/argocd-install/render_templates.sh
 ```
 
 Deploy: `kubectl -n argocd apply -k apps/argocd-install`
+
+## Deploy Velero
+
+Follow the instructions in `apps/velero/README.md`
+
+Deploy scheduled backup: `kubectl apply -k apps/velero-backups`

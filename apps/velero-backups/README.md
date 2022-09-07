@@ -7,21 +7,21 @@
 * Download [latest velero release binary](https://github.com/vmware-tanzu/velero/releases/latest)
 * Connect to relevant cluster
 * Create S3 bucket:
-  * name: `data-for-change-k8s-CLUSTER_NAME-velero-backups`
-  * region: same as cluster
+  * name: `dfc-k8s-main-velero-backups`
+  * region: same as cluster - `eu-central-1`
   * object ownership: ACLs disabled
   * Block all public access
   * Bucket versioning: disable
   * Encryption: disabled
 * Create AWS IAM user:
-  * name: `data-for-change-k8s-CLUSTER_NAME-velero-backups`
+  * name: `dfc-k8s-main-velero-backups`
   * access type: programatic
   * no permissions
-  * save the credentials in vault under `k8s/CLUSTER_NAME/aws-velero-iam-user`
+  * save the credentials in vault under `projects/k8s/velero/aws-iam-dfc-k8s-main-velero-backups`
     * AWS_ACCESS_KEY_ID / AWS_SECRET_ACCESS_KEY
 * Add inline policy to the user:
-  * name: `data-for-change-k8s-CLUSTER_NAME-velero-backups`
-  * content (replace CLUSTER_NAME with the cluster name):
+  * name: `dfc-k8s-main-velero-backups`
+  * content
 ```
 {
     "Version": "2012-10-17",
@@ -48,7 +48,7 @@
                 "s3:ListMultipartUploadParts"
             ],
             "Resource": [
-                "arn:aws:s3:::data-for-change-k8s-CLUSTER_NAME-velero-backups/*"
+                "arn:aws:s3:::dfc-k8s-main-velero-backups/*"
             ]
         },
         {
@@ -57,7 +57,7 @@
                 "s3:ListBucket"
             ],
             "Resource": [
-                "arn:aws:s3:::data-for-change-k8s-CLUSTER_NAME-velero-backups"
+                "arn:aws:s3:::dfc-k8s-main-velero-backups"
             ]
         }
     ]
@@ -69,16 +69,13 @@
 aws_access_key_id=<AWS_ACCESS_KEY_ID>
 aws_secret_access_key=<AWS_SECRET_ACCESS_KEY>
 ```
-* Set env vars:
-  * `CLUSTER_NAME=`
-  * `REGION=`
 * Install velero:
 ```
 velero install \
     --provider aws \
     --plugins velero/velero-plugin-for-aws:v1.4.0 \
-    --bucket data-for-change-k8s-${CLUSTER_NAME}-velero-backups \
-    --backup-location-config region=$REGION \
-    --snapshot-location-config region=$REGION \
+    --bucket dfc-k8s-main-velero-backups \
+    --backup-location-config region=eu-central-1 \
+    --snapshot-location-config region=eu-central-1 \
     --secret-file ./credentials-velero
 ```
