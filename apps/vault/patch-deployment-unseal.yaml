@@ -2,40 +2,15 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: vault
+  namespace: vault
 spec:
-  selector:
-    matchLabels:
-      app: vault
-  replicas: 1
-  revisionHistoryLimit: 5
-  strategy:
-    type: Recreate
   template:
-    metadata:
-      labels:
-        app: vault
     spec:
-      terminationGracePeriodSeconds: 30
       containers:
         - name: vault
-          # pulled June 26, 2022
-          image: vault@sha256:d45ffca3b9bc5f15f665c0afb581de668bca935ff1fffa10049648183c80ef6f
-          resources: {{ .Values.resources }}
-          args:
-            - server
-          ports:
-            - containerPort: 8200
           env:
-            - name: VAULT_LOCAL_CONFIG
-              value: '{"backend": {"file": {"path": "/var/vault/file"}}, "listener": {"tcp": {"address": "0.0.0.0:8200", "tls_disable": 1}}, "api_addr": "http://127.0.0.1:8200", "ui": true}'
             - name: UNSEAL_KEYS
               valueFrom: {"secretKeyRef": {"name": "vault-unseal", "key": "UNSEAL_KEYS"}}
-          volumeMounts:
-            - name: vaultdata
-              mountPath: /var/vault
-              subPath: vaultdata
-          securityContext:
-            privileged: true
           readinessProbe:
             exec:
               command:
@@ -58,7 +33,3 @@ spec:
             timeoutSeconds: 3
             successThreshold: 1
             failureThreshold: 5
-      volumes:
-        - name: vaultdata
-          persistentVolumeClaim:
-            claimName: vault

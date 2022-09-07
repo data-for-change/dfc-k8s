@@ -3,15 +3,15 @@ kind: ConfigMap
 metadata:
   name: argocd-cm
 data:
-  url: "https://argocd.data-for-change.org.il"
+  url: "https://argocd.dataforchange.org.il"
   dex.config: |
     connectors:
       - type: github
         id: github
         name: GitHub
         config:
-          clientID: ""
-          clientSecret: ""
+          clientID: "__dex.config.connectors.github.clientID__"
+          clientSecret: "__dex.config.connectors.github.clientSecret__"
           orgs:
           - name: data-for-change
             teams:
@@ -20,7 +20,7 @@ data:
   configManagementPlugins: |
     - name: argocd-vault-plugin-helm-with-args
       init:
-        command: ["argocd-data-for-change-plugin", "init", "."]
+        command: ["argocd-dfc-plugin", "init", "."]
       generate:
         command: ["sh", "-c"]
-        args: ['argocd-data-for-change-plugin generate . "$ARGOCD_APP_NAME" ${helm_args}']
+        args: ['argocd-dfc-plugin generate . "$ARGOCD_APP_NAME" ${helm_args}']

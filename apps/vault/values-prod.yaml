@@ -1,9 +1,0 @@
-enabled: true
-resources: '{"requests": {"cpu": "50m", "memory": "100Mi"}, "limits": {"memory": "500Mi"}}'
-pvcSize: 20Gi
-ingresses:
-  - name: vault
-    rules:
-      - host: vault.data-for-change.org.il
-        serviceName: vault
-        servicePort: 8200

@@ -3,6 +3,8 @@ kind: Kustomization
 
 resources:
 - install.yaml
+- ingress-https.yaml
+- ingress-grpc.yaml
 
 patchesStrategicMerge:
 - argocd-server-deployment.yaml

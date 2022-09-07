@@ -6,7 +6,7 @@ metadata:
   region: eu-central-1
   version: "1.22"
   tags:
-    anyway-k8s: main
+    dfc-k8s: main
 
 managedNodeGroups:
   - name: ng-1
