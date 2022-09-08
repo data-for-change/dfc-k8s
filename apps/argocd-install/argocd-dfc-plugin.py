@@ -11,7 +11,7 @@ import requests
 from kubernetes import client, config
 
 
-DEBUG = True
+DEBUG = False
 
 
 regex_pattern = re.compile('~([^~]+)~')
