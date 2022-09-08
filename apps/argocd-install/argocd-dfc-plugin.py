@@ -11,6 +11,9 @@ import requests
 from kubernetes import client, config
 
 
+DEBUG = True
+
+
 regex_pattern = re.compile('~([^~]+)~')
 regex_format = '~{}~'
 
@@ -27,8 +30,14 @@ coreV1Api = client.CoreV1Api()
 
 
 def debug_log(msg):
-    with open('/tmp/argocd-dfc-plugin.log', 'a') as f:
-        f.write(f'{msg}\n')
+    if DEBUG:
+        with open('/tmp/argocd-dfc-plugin.log', 'a') as f:
+            f.write(f'{msg}\n')
+
+
+def debug_env():
+    if DEBUG:
+        debug_log(subprocess.check_output(['env']).decode())
 
 
 def init(chart_path):
@@ -122,7 +131,7 @@ def generate(chart_path, argocd_app_name, *helm_args):
     debug_log(
         f'generate chart_path={chart_path} argocd_app_name={argocd_app_name} helm_args={helm_args}'.replace('\n', '\n #')
     )
-    debug_log(subprocess.check_output(['env']).decode())
+    debug_env()
     yamls = subprocess.check_output(
         ['helm', 'template', argocd_app_name, *helm_args, '.'],
         cwd=chart_path

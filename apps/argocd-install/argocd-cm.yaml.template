@@ -23,4 +23,4 @@ data:
         command: ["argocd-dfc-plugin", "init", "."]
       generate:
         command: ["sh", "-c"]
-        args: ['argocd-dfc-plugin generate . "$ARGOCD_APP_NAME" ${helm_args}']
+        args: ['argocd-dfc-plugin generate . "$ARGOCD_APP_NAME" ${ARGOCD_ENV_helm_args}']
