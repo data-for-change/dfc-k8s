@@ -1,0 +1,17 @@
+loki:
+  persistence:
+    enabled: true
+    accessModes:
+      - ReadWriteOnce
+    size: 50Gi
+
+  config:
+    compactor:
+      retention_enabled: true
+    limits_config:
+      retention_period: 168h
+
+promtail:
+  config:
+    clients:
+      - url: http://loki:3100/loki/api/v1/push

@@ -1,0 +1,5 @@
+{
+  "init_helm_repos": {
+    "grafana": "https://grafana.github.io/helm-charts"
+  }
+}

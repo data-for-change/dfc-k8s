@@ -23,6 +23,17 @@ apps:
     sourceVaultPluginHelmValueFiles:
       - values-main.yaml
 
+  - name: logging
+    disableAutoSync: true
+    project: default
+    destinationNamespace: logging
+    source:
+      repoURL: 'https://github.com/data-for-change/dfc-k8s.git'
+      targetRevision: main
+      path: apps/logging
+    sourceVaultPluginHelmValueFiles:
+      - values-main.yaml
+
   - name: velero-backups
     project: default
     destinationNamespace: velero
