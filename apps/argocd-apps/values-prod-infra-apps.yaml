@@ -30,3 +30,19 @@ apps:
       repoURL: 'https://github.com/data-for-change/dfc-k8s.git'
       targetRevision: main
       path: apps/velero-backups
+
+  - name: vault
+    project: default
+    destinationNamespace: vault
+    source:
+      repoURL: 'https://github.com/data-for-change/dfc-k8s.git'
+      targetRevision: main
+      path: apps/vault
+
+  - name: ingress-nginx
+    project: default
+    destinationNamespace: ingress-nginx
+    source:
+      repoURL: 'https://github.com/data-for-change/dfc-k8s.git'
+      targetRevision: main
+      path: apps/ingress-nginx
