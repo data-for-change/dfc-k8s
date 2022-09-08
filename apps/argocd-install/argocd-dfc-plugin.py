@@ -2,6 +2,7 @@
 import re
 import os
 import sys
+import json
 import base64
 import urllib3
 import subprocess
@@ -26,6 +27,13 @@ coreV1Api = client.CoreV1Api()
 
 
 def init(chart_path):
+    config_json_filename = os.path.join(chart_path, 'argocd_dfc_plugin.json')
+    conf = {}
+    if os.path.exists(config_json_filename):
+        with open(config_json_filename) as f:
+            conf = json.load(f)
+    for repo_name, repo_url in conf.get('init_helm_repos', {}).items():
+        subprocess.check_call(['helm', 'repo', 'add', repo_name, repo_url])
     subprocess.check_call(['helm', 'dependency', 'build'], cwd=chart_path)
 
 

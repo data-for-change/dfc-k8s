@@ -1,33 +1,23 @@
 apps:
 
-  - name: monitoring
-    project: default
-    destinationNamespace: monitoring
+  - name: anyway-prod
+    project: anyway
+    destinationNamespace: anyway
     source:
       repoURL: 'https://github.com/data-for-change/dfc-k8s.git'
       targetRevision: main
-      path: apps/monitoring
+      path: apps/anyway
     sourceVaultPluginHelmValueFiles:
-      - values-main.yaml
+      - values-anyway-prod.yaml
+      - values-anyway-auto-updated.yaml
 
-#  - name: anyway-prod
-#    project: anyway
-#    destinationNamespace: anyway
-#    source:
-#      repoURL: 'https://github.com/data-for-change/dfc-k8s.git'
-#      targetRevision: main
-#      path: apps/anyway
-#    sourceVaultPluginHelmValueFiles:
-#      - values-anyway-prod.yaml
-#      - values-anyway-auto-updated.yaml
-#
-#  - name: anyway-dev
-#    project: anyway
-#    destinationNamespace: anyway-dev
-#    source:
-#      repoURL: 'https://github.com/data-for-change/dfc-k8s.git'
-#      targetRevision: main
-#      path: apps/anyway
-#    sourceVaultPluginHelmValueFiles:
-#      - values-anyway-dev.yaml
-#      - values-anyway-auto-updated.yaml
+  - name: anyway-dev
+    project: anyway
+    destinationNamespace: anyway-dev
+    source:
+      repoURL: 'https://github.com/data-for-change/dfc-k8s.git'
+      targetRevision: main
+      path: apps/anyway
+    sourceVaultPluginHelmValueFiles:
+      - values-anyway-dev.yaml
+      - values-anyway-auto-updated.yaml

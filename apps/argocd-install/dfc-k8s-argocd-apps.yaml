@@ -14,7 +14,7 @@ spec:
     path: apps/argocd-apps
     helm:
       valueFiles:
-        - values-prod-apps.yaml
+        - values-prod-infra-apps.yaml
         - values-prod-projects.yaml
   syncPolicy:
     automated:
