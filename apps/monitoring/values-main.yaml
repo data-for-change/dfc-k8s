@@ -1,8 +1,6 @@
 kube-prometheus-stack:
-  namespaceOverride: monitoring
 
   grafana:
-    namespaceOverride: monitoring
     adminPassword: "~vault:projects/k8s/monitoring/grafana-admin:password~"
     ingress:
       enabled: true

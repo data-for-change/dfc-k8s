@@ -27,6 +27,7 @@ coreV1Api = client.CoreV1Api()
 
 
 def init(chart_path):
+    print(f'init chart_path={chart_path}', file=sys.stderr)
     config_json_filename = os.path.join(chart_path, 'argocd_dfc_plugin.json')
     conf = {}
     if os.path.exists(config_json_filename):
@@ -113,6 +114,9 @@ def get_match_values(parsed_matches):
 
 
 def generate(chart_path, argocd_app_name, *helm_args):
+    print(
+        f'# generate chart_path={chart_path} argocd_app_name={argocd_app_name} helm_args={helm_args}'.replace('\n', '\n #'),
+    )
     yamls = subprocess.check_output(
         ['helm', 'template', argocd_app_name, *helm_args, '.'],
         cwd=chart_path
