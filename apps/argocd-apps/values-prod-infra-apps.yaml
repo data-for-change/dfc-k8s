@@ -1,13 +1,5 @@
 apps:
 
-  - name: argocd-install
-    project: default
-    destinationNamespace: argocd
-    source:
-      repoURL: 'https://github.com/data-for-change/dfc-k8s.git'
-      targetRevision: main
-      path: apps/argocd-install
-
   - name: monitoring
     project: default
     destinationNamespace: monitoring
