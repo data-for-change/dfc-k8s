@@ -20,12 +20,6 @@ spec:
       - name: download-tools
         image: alpine:3.8
         command: [sh, -c]
-
-        # Don't forget to update this to whatever the stable release version is
-        # Note the lack of the `v` prefix unlike the git tag
-        env:
-          - name: AVP_VERSION
-            value: "1.10.1"
         args:
           - >-
             wget -O argocd-dfc-plugin
@@ -35,6 +29,5 @@ spec:
         volumeMounts:
           - mountPath: /custom-tools
             name: custom-tools
-
       automountServiceAccountToken: true
       serviceAccountName: argocd-server

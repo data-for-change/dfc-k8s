@@ -26,8 +26,13 @@ except config.ConfigException:
 coreV1Api = client.CoreV1Api()
 
 
+def debug_log(msg):
+    with open('/tmp/argocd-dfc-plugin.log', 'a') as f:
+        f.write(f'{msg}\n')
+
+
 def init(chart_path):
-    print(f'init chart_path={chart_path}', file=sys.stderr)
+    debug_log(f'init chart_path={chart_path}')
     config_json_filename = os.path.join(chart_path, 'argocd_dfc_plugin.json')
     conf = {}
     if os.path.exists(config_json_filename):
@@ -114,9 +119,10 @@ def get_match_values(parsed_matches):
 
 
 def generate(chart_path, argocd_app_name, *helm_args):
-    print(
-        f'# generate chart_path={chart_path} argocd_app_name={argocd_app_name} helm_args={helm_args}'.replace('\n', '\n #'),
+    debug_log(
+        f'generate chart_path={chart_path} argocd_app_name={argocd_app_name} helm_args={helm_args}'.replace('\n', '\n #')
     )
+    debug_log(subprocess.check_output(['env']).decode())
     yamls = subprocess.check_output(
         ['helm', 'template', argocd_app_name, *helm_args, '.'],
         cwd=chart_path
