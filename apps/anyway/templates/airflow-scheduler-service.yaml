@@ -1,0 +1,14 @@
+{{ if .Values.enableAirflow }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: airflow-scheduler
+spec:
+  selector:
+    app: airflow-scheduler
+  ports:
+  - name: "80"
+    port: 80
+  - name: "8080"
+    port: 8080
+{{ end }}

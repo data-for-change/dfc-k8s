@@ -16,6 +16,7 @@ spec:
       valueFiles:
         - values-prod-infra-apps.yaml
         - values-prod-projects.yaml
+        - values-prod-apps.yaml
   syncPolicy:
     automated:
       prune: true
