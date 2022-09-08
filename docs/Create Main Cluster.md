@@ -1,4 +1,4 @@
-# Create Cluster
+# Create Main Cluster
 
 This document describes the procedure used to create the main dfc cluster
 
