@@ -1,4 +1,4 @@
-apps:
+infra_apps:
 
   - name: monitoring-kube-prometheus-crds
     disableAutoSync: true

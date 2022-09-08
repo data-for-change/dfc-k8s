@@ -1,4 +1,4 @@
-{{ range .Values.apps }}
+{{ range (concat .Values.apps .Values.infra_apps) }}
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
