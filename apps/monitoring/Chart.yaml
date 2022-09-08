@@ -4,5 +4,6 @@ apiVersion: v2
 
 dependencies:
   - name: kube-prometheus-stack
-    version: "39.5.0"
+    # # this version should match version defined in apps/argocd-apps/values-prod-infra-apps.yaml
+    version: "39.11.0"
     repository: "https://prometheus-community.github.io/helm-charts"

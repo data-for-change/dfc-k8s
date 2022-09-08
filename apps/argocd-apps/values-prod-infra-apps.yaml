@@ -7,6 +7,7 @@ apps:
     source:
       repoURL: https://github.com/prometheus-community/helm-charts.git
       path: charts/kube-prometheus-stack/crds/
+      # this version should match version defined in apps/monitoring/Chart.yaml
       targetRevision: kube-prometheus-stack-39.11.0
       directory:
         recurse: true
