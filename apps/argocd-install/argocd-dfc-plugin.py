@@ -29,15 +29,12 @@ except config.ConfigException:
 coreV1Api = client.CoreV1Api()
 
 
-def debug_log(msg):
+def debug_log(msg, with_env=False):
     if DEBUG:
         with open('/tmp/argocd-dfc-plugin.log', 'a') as f:
             f.write(f'{msg}\n')
-
-
-def debug_env():
-    if DEBUG:
-        debug_log(subprocess.check_output(['env']).decode())
+        if with_env:
+            debug_log(subprocess.check_output(['env']).decode())
 
 
 def init(chart_path):
@@ -127,13 +124,14 @@ def get_match_values(parsed_matches):
     return match_values
 
 
-def generate(chart_path, argocd_app_name, *helm_args):
+def generate(chart_path, argocd_app_name, argocd_app_namespace, *helm_args):
     debug_log(
-        f'generate chart_path={chart_path} argocd_app_name={argocd_app_name} helm_args={helm_args}'.replace('\n', '\n #')
+        f'generate chart_path={chart_path} argocd_app_name={argocd_app_name} '
+        f'argocd_app_namespace={argocd_app_namespace} helm_args={helm_args}',
+        with_env=True
     )
-    debug_env()
     yamls = subprocess.check_output(
-        ['helm', 'template', argocd_app_name, *helm_args, '.'],
+        ['helm', 'template', argocd_app_name, '--namespace', argocd_app_namespace, *helm_args, '.'],
         cwd=chart_path
     ).decode()
     parsed_matches = parse_matches(set(re.findall(regex_pattern, yamls)))
