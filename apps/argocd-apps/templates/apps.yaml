@@ -12,7 +12,7 @@ spec:
     {{ else }}
     server: 'https://kubernetes.default.svc'
     {{ end }}
-  project: default
+  project: {{ if .project }}{{ .project | quote }}{{ else }}{{ .name | quote }}{{ end }}
   source: {{ toYaml .source | nindent 4 }}
   {{ if .sourceVaultPluginHelmValueFiles }}
     plugin:
@@ -22,10 +22,12 @@ spec:
           value: {{ range .sourceVaultPluginHelmValueFiles }} -f {{ . }} {{ end }}
   {{ end }}
   syncPolicy:
-    {{ if .enableAutoSync }}
+    {{ if not $.Values.globalDisableAutoSync }}
+    {{ if not .disableAutoSync }}
     automated:
       prune: true
       selfHeal: true
+    {{ end }}
     {{ end }}
     syncOptions:
       - CreateNamespace=true

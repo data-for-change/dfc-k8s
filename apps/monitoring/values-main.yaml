@@ -1,0 +1,36 @@
+kube-prometheus-stack:
+  grafana:
+    adminPassword: "~vault:projects/k8s/monitoring/grafana-admin:password~"
+    ingress:
+      enabled: true
+      ingressClassName: nginx
+      hosts:
+        - grafana.dataforchange.org.il
+    persistence:
+      enabled: true
+
+  kubeApiServer:
+    enabled: false
+
+  kubeControllerManager:
+    enabled: false
+
+  kubeEtcd:
+    enabled: false
+
+  kubeScheduler:
+    enabled: false
+
+  kubeStateMetrics:
+    enabled: true
+
+  prometheus:
+    prometheusSpec:
+      retention: 10d
+      storageSpec:
+        volumeClaimTemplate:
+          spec:
+            accessModes: [ "ReadWriteOnce" ]
+            resources:
+              requests:
+                storage: 100Gi

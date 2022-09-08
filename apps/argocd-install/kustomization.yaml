@@ -5,6 +5,7 @@ resources:
 - install.yaml
 - ingress-https.yaml
 - ingress-grpc.yaml
+- dfc-k8s-argocd-apps.yaml
 
 patchesStrategicMerge:
 - argocd-server-deployment.yaml
