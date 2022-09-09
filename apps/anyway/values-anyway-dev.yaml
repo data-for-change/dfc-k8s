@@ -41,22 +41,22 @@ AIRFLOW__SMTP__SMTP_MAIL_FROM: "Dev Airflow <dev-airflow@anyway.co.il>"
 AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: "True"
 AIRFLOW__WEBSERVER__BASE_URL: https://dev-airflow.anyway.co.il
 
-#ingresses:
-#  - name: nginx
-#    rules:
-#      - host: dev.anyway.co.il
-#        serviceName: nginx
-#        servicePort: 80
-#  - name: airflow
-#    rules:
-#      - host: dev-airflow.anyway.co.il
-#        serviceName: airflow-scheduler
-#        servicePort: 8080
-#  - name: airflow-data
-#    rules:
-#      - host: dev-airflow-data.anyway.co.il
-#        serviceName: airflow-scheduler
-#        servicePort: 80
+ingresses:
+  - name: nginx
+    rules:
+      - host: dev.anyway.co.il
+        serviceName: nginx
+        servicePort: 80
+  - name: airflow
+    rules:
+      - host: dev-airflow.anyway.co.il
+        serviceName: airflow-scheduler
+        servicePort: 8080
+  - name: airflow-data
+    rules:
+      - host: dev-airflow-data.anyway.co.il
+        serviceName: airflow-scheduler
+        servicePort: 80
 
 secrets:
   - name: anyway
