@@ -61,14 +61,6 @@ CREATE USER redash WITH PASSWORD '*****';
 GRANT readonly TO redash;
 ```
 
-
-## Creating a new environment based on existing environment
-
-* Copy the environment values file and modify the values as needed
-* Create the environment namespace
-* Copy all the secrets from old to new environment (secrets: `anyway`, `anyway-db`, `db`)
-* Deploy
-
 ## Restore from backup
 
 Production DB has a daily backup which can be used to populate a new environment's DB

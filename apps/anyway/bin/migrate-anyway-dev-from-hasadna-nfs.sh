@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # this script is used to migrate the anyway-dev storage from hasadna NFS to AWS pvc
 # it is intended to run from hasadna's NFS server
+# it's recommended to stop the relevant workloads which use the pvcs before running this script
 # if you want to recreate the data, run the script with --delete first to delete any existing pvcs
 
 if [ "${1}" == "--delete" ]; then
