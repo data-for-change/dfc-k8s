@@ -90,4 +90,6 @@ tar cf - . | kubectl exec -c alpine -i -n "${TARGET_PVC_NAMESPACE}" "${POD_NAME}
 
 kubectl exec -it -n ${TARGET_PVC_NAMESPACE} ${POD_NAME} -- sh -c "ls -lah /data"
 
+kubectl delete deployment/migrate-data-${TARGET_PVC_NAME} -n ${TARGET_PVC_NAMESPACE}
+
 echo Great Success

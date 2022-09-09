@@ -24,6 +24,8 @@ aws configure --profile dfc-kubernetes-admin
 
 ### Connecting using kubectl
 
+Clone the dfc-k8s repository and change directory to it
+
 source the cluster .env file:
 
 ```
