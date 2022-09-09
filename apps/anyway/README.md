@@ -28,16 +28,6 @@ https://docs.google.com/presentation/d/1bXkcCgsXUr1FQA7hCZdb5_m7IXIiP1UixuOHuV88
 * For local deployment on Minikue - use Helm to deploy this chart with the values file `values-minikube.yaml`
 * For production deployment - Use ArgoCD, see [/docs/argocd.md](/docs/argocd.md) for details.
 
-## Creating a new environment based on existing environment
-
-In this example - production environment will be copied to dev environment
-
-* Copy the values file, e.g. copy from `values-anyway.yaml` to `values-anyway-dev.yaml`
-* Modify the values as needed
-* Create the namespace - `kubectl create ns anyway-dev`
-* Copy the secrets from old to new environment (secrets: `anyway`, `anyway-db`, `db`)
-* Deploy
-
 ## Enabling the Airflow server
 
 Set the following values in `anyway` secret:
@@ -70,6 +60,14 @@ ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT ON TABLES TO readonly;
 CREATE USER redash WITH PASSWORD '*****';
 GRANT readonly TO redash;
 ```
+
+
+## Creating a new environment based on existing environment
+
+* Copy the environment values file and modify the values as needed
+* Create the environment namespace
+* Copy all the secrets from old to new environment (secrets: `anyway`, `anyway-db`, `db`)
+* Deploy
 
 ## Restore from backup
 
