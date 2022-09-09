@@ -57,3 +57,14 @@ infra_apps:
       repoURL: 'https://github.com/data-for-change/dfc-k8s.git'
       targetRevision: main
       path: apps/ingress-nginx
+
+  - name: cluster-admin
+    disableAutoSync: true
+    project: default
+    destinationNamespace: cluster-admin
+    source:
+      repoURL: 'https://github.com/data-for-change/dfc-k8s.git'
+      targetRevision: main
+      path: apps/cluster-admin
+    sourceVaultPluginHelmValueFiles:
+      - values-main.yaml
