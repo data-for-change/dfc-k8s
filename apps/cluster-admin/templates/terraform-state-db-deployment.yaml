@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: terraform-state-db
+spec:
+  selector:
+    matchLabels:
+      app: terraform-state-db
+  replicas: 1
+  revisionHistoryLimit: 2
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: terraform-state-db
+    spec:
+      terminationGracePeriodSeconds: 10
+      initContainers:
+        - name: init-ssl
+          # pulled Sep 18, 2022
+          image: alpine@sha256:bc41182d7ef5ffc53a40b044e725193bc10142a1243f395ee852a8d9730fc2ad
+          command:
+            - sh
+            - -c
+            - |
+              cp /opt/ssl/server.* /opt/secured_ssl/ &&\
+              chmod 600 /opt/secured_ssl/server.* &&\
+              chown 999:999 /opt/secured_ssl/* &&\
+              if ! cat /var/lib/postgresql/data/pg_hba.conf | grep "^hostnossl"; then
+                sed -i '1i hostnossl all all 0.0.0.0/0 reject' /var/lib/postgresql/data/pg_hba.conf
+              fi
+          volumeMounts:
+            - name: ssl
+              mountPath: /opt/ssl
+            - name: secured-ssl
+              mountPath: /opt/secured_ssl
+            - name: data
+              mountPath: /var/lib/postgresql/data
+              subPath: terraform_state_db_postgres
+      containers:
+        - name: postgres
+          # pulled Sep 18, 2022
+          image: postgres:14@sha256:b0ee049a2e347f5ec8c64ad225c7edbc88510a9e34450f23c4079a489ce16268
+          args: [
+            -c, "ssl_cert_file=/opt/secured_ssl/server.crt",
+            -c, "ssl_key_file=/opt/secured_ssl/server.key",
+            -c, "ssl=on"
+          ]
+          ports:
+            - containerPort: 5432
+          resources: {{ toYaml .Values.terraformStateDb.resources | nindent 12 }}
+          env:
+            - name: POSTGRES_PASSWORD
+              valueFrom: {"secretKeyRef":{"name":"terraform-state-db", "key":"POSTGRES_PASSWORD"}}
+          volumeMounts:
+            - name: data
+              mountPath: /var/lib/postgresql/data
+              subPath: terraform_state_db_postgres
+            - name: secured-ssl
+              mountPath: /opt/secured_ssl
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: terraform-state-db
+        - name: ssl
+          secret:
+            secretName: terraform-state-db
+            items:
+              - key: server.key
+                path: server.key
+              - key: server.crt
+                path: server.crt
+        - name: secured-ssl
+          emptyDir: {}
