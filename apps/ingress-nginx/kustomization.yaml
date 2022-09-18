@@ -3,7 +3,20 @@ kind: Kustomization
 
 resources:
 - deploy.yaml
+- controller-tcp-services-configmap.yaml
 
 patchesStrategicMerge:
 - patch-controller-configmap.yaml
 - patch-controller-service.yaml
+- patch-controller-nlb-service.yaml
+
+patchesJson6902:
+- target:
+    group: apps
+    version: v1
+    kind: Deployment
+    name: ingress-nginx-controller
+  patch: |-
+    - op: add
+      path: /spec/template/spec/containers/0/args/-
+      value: --tcp-services-configmap=ingress-nginx/controller-tcp-services
