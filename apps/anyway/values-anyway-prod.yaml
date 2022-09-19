@@ -13,7 +13,6 @@ dbBackupEnabled: true
 dbBackupResources: '{"requests": {"cpu": "25m", "memory": "700Mi"}, "limits": {"cpu": "165m", "memory": "1000Mi"}}'
 dbBackupSchedule: "10 0 * * *"
 enableLogs: true
-dbNodePort: 28733
 dbRestoreBucket: "anyway-full-db-dumps"
 dbRestoreFileName: "2020-06-09_anyway.pgdump"
 

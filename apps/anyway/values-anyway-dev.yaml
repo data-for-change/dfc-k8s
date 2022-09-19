@@ -12,7 +12,6 @@ DBDUMP_S3_FILE_PREFIX: ""
 dbBackupEnabled: false
 dbBackupResources: '{"requests": {"cpu": "25m", "memory": "700Mi"}, "limits": {"cpu": "165m", "memory": "1000Mi"}}'
 dbBackupSchedule: "10 0 * * *"
-dbNodePort: 30735
 dbRestoreBucket: "anyway-full-db-dumps"
 dbRestoreFileName: "2021-10-10_anyway.pgdump"
 useDevImages: true
