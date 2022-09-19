@@ -26,4 +26,8 @@ spec:
                 value: "db"
               - name: DBDUMP_USER
                 value: "postgres"
+              - name: DBDUMP_FULL_BUCKET
+                value: {{ .Values.DBDUMP_FULL_BUCKET | quote }}
+              - name: DBDUMP_PARTIAL_BUCKET
+                value: {{ .Values.DBDUMP_PARTIAL_BUCKET | quote }}
 {{ end }}

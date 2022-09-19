@@ -64,16 +64,16 @@ def parse_matches(matches):
                         'key': vault_key,
                         'output_raw': parse_type == 'vault_raw'
                     }
-        # elif match.startswith('iac:'):
-        #     match_parts = match.split(':')
-        #     if len(match_parts) > 1:
-        #         _, *iac_key = match.split(':')
-        #         iac_key = ':'.join(iac_key)
-        #         if len(iac_key):
-        #             parsed_matches[match] = {
-        #                 'type': 'iac',
-        #                 'key': iac_key
-        #             }
+        elif match.startswith('iac:'):
+            match_parts = match.split(':')
+            if len(match_parts) > 1:
+                _, *iac_key = match.split(':')
+                iac_key = ':'.join(iac_key)
+                if len(iac_key):
+                    parsed_matches[match] = {
+                        'type': 'iac',
+                        'key': iac_key
+                    }
     return parsed_matches
 
 
@@ -85,9 +85,9 @@ def get_vault_path_data(vault_addr, vault_token, path):
     ).json()['data']['data']
 
 
-# def get_iac_data():
-#     configmap = coreV1Api.read_namespaced_config_map('tf-outputs', 'argocd')
-#     return configmap.data
+def get_iac_data():
+    configmap = coreV1Api.read_namespaced_config_map('tf-outputs', 'argocd')
+    return configmap.data
 
 
 def get_vault_creds():
@@ -106,15 +106,14 @@ def get_vault_creds():
 def get_match_values(parsed_matches):
     vault_addr, vault_token = get_vault_creds()
     match_values = {}
-    # iac_data = None
+    iac_data = None
     vault_paths_data = {}
     for match, parsed_match in parsed_matches.items():
-        # if parsed_match['type'] == 'iac':
-        #     if iac_data is None:
-        #         iac_data = get_iac_data()
-        #     match_values[match] = iac_data.get(parsed_match['key'], '')
-        # el
-        if parsed_match['type'] == 'vault':
+        if parsed_match['type'] == 'iac':
+            if iac_data is None:
+                iac_data = get_iac_data()
+            match_values[match] = iac_data.get(parsed_match['key'], '')
+        elif parsed_match['type'] == 'vault':
             if parsed_match['path'] not in vault_paths_data:
                 vault_paths_data[parsed_match['path']] = get_vault_path_data(vault_addr, vault_token, parsed_match['path'])
             val = vault_paths_data[parsed_match['path']].get(parsed_match['key'], '')

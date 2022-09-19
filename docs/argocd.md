@@ -21,12 +21,13 @@ To have access you need to belong to one of these teams:
 * [argocd-users](https://github.com/orgs/data-for-change/teams/argocd-users) - have read-only access, can view deployment progress but can't perform any actions 
 * [argocd-admins](https://github.com/orgs/data-for-change/teams/argocd-admins) - have full admin access
 
-## Using values from Vault
+## Using values from external sources
 
-ArgoCD plugin handles replacing values in rendered templates from our Vault.
+ArgoCD plugin handles replacing values in rendered templates from external sources.
 Any value in the following format will be replaced:
 
-* `vault:path:key` - the `key` will be taken from the Vault `path`, value will be base64 encoded and should be used in k8s secrets only
+* `~vault:path:key~` - the `key` will be taken from the Vault `path`, value will be base64 encoded and should be used in k8s secrets only
+* `~iac:key~` - the `key` will be taken from [dfc-iac tf_outputs](https://github.com/data-for-change/dfc-iac/blob/main/kubernetes_tf_outputs.tf) 
 
 ## Making Changes Locally
 
