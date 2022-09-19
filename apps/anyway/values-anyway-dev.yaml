@@ -68,8 +68,8 @@ secrets:
       AIRFLOW__SMTP__SMTP_USER: "~vault:projects/anyway/dev/k8s-secret-anyway:AIRFLOW__SMTP__SMTP_USER~"
       ANYWAY_ETL_ALERT_EMAILS: "~vault:projects/anyway/dev/k8s-secret-anyway:ANYWAY_ETL_ALERT_EMAILS~"
       APP_SECRET_KEY: "~vault:projects/anyway/dev/k8s-secret-anyway:APP_SECRET_KEY~"
-      AWS_ACCESS_KEY: "~vault:projects/anyway/dev/k8s-secret-anyway:AWS_ACCESS_KEY~"
-      AWS_SECRET_KEY: "~vault:projects/anyway/dev/k8s-secret-anyway:AWS_SECRET_KEY~"
+      AWS_ACCESS_KEY: "~vault:projects/anyway/prod/aws_prod_app_user:access_key_id~"
+      AWS_SECRET_KEY: "~vault:projects/anyway/prod/aws_prod_app_user:secret_access_key~"
       FACEBOOK_KEY: "~vault:projects/anyway/dev/k8s-secret-anyway:FACEBOOK_KEY~"
       FACEBOOK_SECRET: "~vault:projects/anyway/dev/k8s-secret-anyway:FACEBOOK_SECRET~"
       FLASK_ENV: "~vault:projects/anyway/dev/k8s-secret-anyway:FLASK_ENV~"
@@ -89,7 +89,7 @@ secrets:
       DATABASE_URL: "~vault:projects/anyway/dev/k8s-secret-anyway-db:DATABASE_URL~"
   - name: db
     data:
-      DBRESTORE_AWS_ACCESS_KEY_ID: "~vault:projects/anyway/dev/k8s-secret-db:DBRESTORE_AWS_ACCESS_KEY_ID~"
-      DBRESTORE_AWS_SECRET_ACCESS_KEY: "~vault:projects/anyway/dev/k8s-secret-db:DBRESTORE_AWS_SECRET_ACCESS_KEY~"
+      DBRESTORE_AWS_ACCESS_KEY_ID: "~vault:projects/anyway/prod/aws_db_dumps_reader_user:access_key_id~"
+      DBRESTORE_AWS_SECRET_ACCESS_KEY: "~vault:projects/anyway/prod/aws_db_dumps_reader_user:secret_access_key~"
       DBRESTORE_SET_ANYWAY_PASSWORD: "~vault:projects/anyway/dev/k8s-secret-db:DBRESTORE_SET_ANYWAY_PASSWORD~"
       POSTGRES_PASSWORD: "~vault:projects/anyway/dev/k8s-secret-db:POSTGRES_PASSWORD~"
