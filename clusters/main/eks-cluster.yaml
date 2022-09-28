@@ -12,8 +12,8 @@ managedNodeGroups:
   - name: ng-1
     # 2 cpu, 16gb ram
     instanceType: r5.large
-    minSize: 1
-    desiredCapacity: 1
+    minSize: 2
+    desiredCapacity: 2
     maxSize: 3
     availabilityZones: ["eu-central-1b"]
     volumeSize: 200

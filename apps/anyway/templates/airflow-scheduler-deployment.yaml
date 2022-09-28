@@ -17,6 +17,7 @@ spec:
         app: airflow-scheduler
     spec:
       terminationGracePeriodSeconds: 240
+      imagePullSecrets: [{"name":"github"}]
       serviceAccountName: airflow-scheduler
       containers:
         - name: scheduler

@@ -17,6 +17,7 @@ spec:
         app: db
     spec:
       terminationGracePeriodSeconds: 10
+      imagePullSecrets: [{"name":"github"}]
       {{ if .Values.dbNodeSelector }}
       nodeSelector:
         kubernetes.io/hostname: {{ .Values.dbNodeSelector }}

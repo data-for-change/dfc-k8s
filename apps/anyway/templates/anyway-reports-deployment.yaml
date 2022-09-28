@@ -15,6 +15,7 @@ spec:
         app: reports
     spec:
       terminationGracePeriodSeconds: 2
+      imagePullSecrets: [{"name":"github"}]
       automountServiceAccountToken: false
       containers:
       - name: reports

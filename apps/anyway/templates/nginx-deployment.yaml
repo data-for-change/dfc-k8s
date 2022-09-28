@@ -17,6 +17,7 @@ spec:
         checksum/config: {{ include (print $.Template.BasePath "/nginx-configmap.yaml") . | sha256sum }}
     spec:
       terminationGracePeriodSeconds: 2
+      imagePullSecrets: [{"name":"github"}]
       containers:
       - name: nginx
         image: {{ if .Values.useDevImages }}{{ .Values.nginxImageDev }}{{ else }}{{ .Values.nginxImage }}{{ end }}

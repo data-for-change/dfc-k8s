@@ -17,6 +17,7 @@ spec:
         app: airflow-db
     spec:
       terminationGracePeriodSeconds: 10
+      imagePullSecrets: [{"name":"github"}]
       containers:
       - name: db
         image: {{ .Values.airflowDb.image | quote }}
