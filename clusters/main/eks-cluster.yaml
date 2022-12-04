@@ -13,7 +13,7 @@ managedNodeGroups:
     # 2 cpu, 16gb ram
     instanceType: r5.large
     minSize: 2
-    desiredCapacity: 2
+    desiredCapacity: 3
     maxSize: 3
     availabilityZones: ["eu-central-1b"]
     volumeSize: 200

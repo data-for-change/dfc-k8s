@@ -40,3 +40,5 @@ secrets:
       REDASH_COOKIE_SECRET: "~vault:projects/k8s/redash/secret:cookie_secret~"
       REDASH_SECRET_KEY: "~vault:projects/k8s/redash/secret:secret_key~"
       REDASH_DATABASE_URL: "~vault:projects/k8s/redash/secret:redash_database_url~"
+      REDASH_GOOGLE_CLIENT_ID: "~vault:projects/k8s/redash/secret:google_auth_client_id~"
+      REDASH_GOOGLE_CLIENT_SECRET: "~vault:projects/k8s/redash/secret:google_auth_client_secret~"
