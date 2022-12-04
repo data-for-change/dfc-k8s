@@ -1,0 +1,42 @@
+enabled: true
+redashImage: redash/redash:8.0.0.b32245
+redashInitialize: "yes"
+
+server:
+  resources: {"requests": {"cpu": "200m", "memory": "500Mi"}, "limits": {"memory": "1000Mi"}}
+  REDASH_WEB_WORKERS: "4"
+
+scheduler:
+  resources: {"requests": {"cpu": "200m", "memory": "500Mi"}, "limits": {"memory": "1000Mi"}}
+
+scheduledWorker:
+  resources: {"requests": {"cpu": "200m", "memory": "500Mi"}, "limits": {"memory": "1000Mi"}}
+
+adhocWorker:
+  resources: {"requests": {"cpu": "200m", "memory": "1000Mi"}, "limits": {"memory": "2000Mi"}}
+  WORKERS_COUNT: 4
+
+redis:
+  resources: {"requests": {"cpu": "50m", "memory": "500Mi"}, "limits": {"memory": "1000Mi"}}
+
+postgres:
+  resources: {"requests": {"cpu": "50m", "memory": "500Mi"}, "limits": {"memory": "1000Mi"}}
+
+nginx:
+  resources: {"requests": {"cpu": "50m", "memory": "500Mi"}, "limits": {"memory": "1000Mi"}}
+
+ingresses:
+  - name: nginx
+    ssl: true
+    rules:
+      - host: redash.dataforchange.org.il
+        serviceName: nginx
+        servicePort: 80
+
+secrets:
+  - name: redash
+    data:
+      POSTGRES_PASSWORD: "~vault:projects/k8s/redash/secret:postgres_password~"
+      REDASH_COOKIE_SECRET: "~vault:projects/k8s/redash/secret:cookie_secret~"
+      REDASH_SECRET_KEY: "~vault:projects/k8s/redash/secret:secret_key~"
+      REDASH_DATABASE_URL: "~vault:projects/k8s/redash/secret:redash_database_url~"

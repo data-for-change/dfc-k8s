@@ -39,7 +39,7 @@ To make changes locally without depending on argocd, use the following procedure
 * Connect to the cluster
   * Verify by running `kubectl get nodes` and make sure you see the relevant cluster nodes
 * Disable auto-sync for relevant app so your changes won't be rollbacked:
-  * set `disableAutoSync: true` for the relevant app at `hasadna-argocd/values-hasadna.yaml`
+  * set `disableAutoSync: true` for the relevant app
   * Commit & Push this change
 * Set the chart path, name and value files in env vars, for example:
   * `CHART_NAME=monitoring`
