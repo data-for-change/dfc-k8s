@@ -1,6 +1,6 @@
 enabled: true
 redashImage: redash/redash:8.0.0.b32245
-redashInitialize: "yes"
+redashInitialize: ""
 
 server:
   resources: {"requests": {"cpu": "200m", "memory": "500Mi"}, "limits": {"memory": "1000Mi"}}
