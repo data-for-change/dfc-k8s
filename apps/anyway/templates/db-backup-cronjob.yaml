@@ -15,7 +15,7 @@ spec:
           restartPolicy: OnFailure
           containers:
           - name: db-backup
-            image: {{ .Values.dbBackupImage }}
+            image: {{ .Values.pinDbBackupImage | quote }}
             resources: {{ .Values.dbBackupResources }}
             envFrom:
               - secretRef: {"name": "db-backup"}

@@ -13,8 +13,12 @@ dbBackupEnabled: false
 dbBackupResources: '{"requests": {"cpu": "25m", "memory": "700Mi"}, "limits": {"cpu": "165m", "memory": "1000Mi"}}'
 dbBackupSchedule: "10 0 * * *"
 dbRestoreBucket: "anyway-full-db-dumps"
-dbRestoreFileName: "2021-10-10_anyway.pgdump"
+dbRestoreFileName: "2022-12-04_anyway.pgdump"
 useDevImages: true
+
+# we are pinning the DB versions so that we can migrate to newer DB version manually
+pinDbImage: docker.pkg.github.com/hasadna/anyway/db:sha-6dfd43b
+pinDbBackupImage: docker.pkg.github.com/hasadna/anyway/db_backup:sha-6dfd43b
 
 reports:
   enabled: false

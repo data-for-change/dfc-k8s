@@ -18,6 +18,10 @@ enableLogs: true
 DBDUMP_FULL_BUCKET: "~iac:anyway_full_db_dumps_bucket~"
 DBDUMP_PARTIAL_BUCKET: "~iac:anyway_partial_db_dumps_bucket~"
 
+# we are pinning the DB versions so that we can migrate to newer DB version manually
+pinDbImage: docker.pkg.github.com/hasadna/anyway/db:sha-168b027
+pinDbBackupImage: docker.pkg.github.com/hasadna/anyway/db_backup:sha-b3e33ee
+
 reports:
   enabled: true
   replicas: 1
