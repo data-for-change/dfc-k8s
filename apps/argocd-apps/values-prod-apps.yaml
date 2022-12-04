@@ -1,8 +1,7 @@
 apps:
 
   - name: anyway-prod
-    # disable auto sync for more control over db migration
-    disableAutoSync: true
+    disableAutoSync: false
     project: anyway
     destinationNamespace: anyway
     source:
@@ -14,8 +13,7 @@ apps:
       - values-anyway-auto-updated.yaml
 
   - name: anyway-dev
-    # disable auto sync for more control over db migration
-    disableAutoSync: true
+    disableAutoSync: false
     project: anyway
     destinationNamespace: anyway-dev
     source:
