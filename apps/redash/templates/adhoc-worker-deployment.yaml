@@ -30,4 +30,6 @@ spec:
         envFrom:
         - secretRef:
             name: redash
+        - configMapRef:
+            name: redash
 {{ end }}
