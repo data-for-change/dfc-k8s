@@ -15,6 +15,7 @@ dbBackupSchedule: "10 0 * * *"
 dbRestoreBucket: "dfc-anyway-full-db-dumps"
 dbRestoreFileName: "2022-12-04_anyway.pgdump"
 useDevImages: true
+dbPvcName: "db"
 
 # we are pinning the DB versions so that we can migrate to newer DB version manually
 pinDbImage: docker.pkg.github.com/hasadna/anyway/db:sha-6dfd43b

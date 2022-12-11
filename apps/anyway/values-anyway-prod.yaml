@@ -17,6 +17,7 @@ dbRestoreBucket: "dfc-anyway-full-db-dumps"
 dbRestoreFileName: "2022-12-11_anyway.pgdump"
 DBDUMP_FULL_BUCKET: "~iac:anyway_full_db_dumps_bucket~"
 DBDUMP_PARTIAL_BUCKET: "~iac:anyway_partial_db_dumps_bucket~"
+dbPvcName: "db2"
 
 # we are pinning the DB versions so that we can migrate to newer DB version manually
 pinDbImage: docker.pkg.github.com/hasadna/anyway/db:sha-6dfd43b
