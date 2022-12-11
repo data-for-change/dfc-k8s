@@ -9,18 +9,18 @@ secondariesResources: '{"requests": {"cpu": "100m", "memory": "1000Mi"}, "limits
 dbResources: '{"requests": {"cpu": "25m", "memory": "2062Mi"}, "limits": {"cpu": "165m", "memory": "3500Mi"}}'
 nginxResources: '{"requests": {"cpu": "25m", "memory": "256Mi"}, "limits": {"cpu": "78m", "memory": "500Mi"}}'
 DBDUMP_S3_FILE_PREFIX: ""
-dbBackupEnabled: true
+dbBackupEnabled: false
 dbBackupResources: '{"requests": {"cpu": "25m", "memory": "700Mi"}, "limits": {"cpu": "165m", "memory": "1000Mi"}}'
 dbBackupSchedule: "10 0 * * *"
 enableLogs: true
-#dbRestoreBucket: "anyway-full-db-dumps"
-#dbRestoreFileName: "2020-06-09_anyway.pgdump"
+dbRestoreBucket: "dfc-anyway-full-db-dumps"
+dbRestoreFileName: "2022-12-11_anyway.pgdump"
 DBDUMP_FULL_BUCKET: "~iac:anyway_full_db_dumps_bucket~"
 DBDUMP_PARTIAL_BUCKET: "~iac:anyway_partial_db_dumps_bucket~"
 
 # we are pinning the DB versions so that we can migrate to newer DB version manually
-pinDbImage: docker.pkg.github.com/hasadna/anyway/db:sha-168b027
-pinDbBackupImage: docker.pkg.github.com/hasadna/anyway/db_backup:sha-b3e33ee
+pinDbImage: docker.pkg.github.com/hasadna/anyway/db:sha-6dfd43b
+pinDbBackupImage: docker.pkg.github.com/hasadna/anyway/db_backup:sha-6dfd43b
 
 reports:
   enabled: true
