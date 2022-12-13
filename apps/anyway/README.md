@@ -55,11 +55,11 @@ Run the following to create the readonly user (replace **** with real password):
 CREATE ROLE readonly;
 GRANT CONNECT ON DATABASE anyway TO readonly;
 GRANT USAGE ON SCHEMA public TO readonly;
-GRANT SELECT ON ALL TABLES IN SCHEMA public TO readonly;
-ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT ON TABLES TO readonly;
 CREATE USER redash WITH PASSWORD '*****';
 GRANT readonly TO redash;
 ```
+
+See [this document](https://github.com/hasadna/anyway/blob/dev/docs/REDASH.md) for how to grant permissions for tables to this user.
 
 ## Restore from backup
 
