@@ -19,7 +19,8 @@ DBDUMP_FULL_BUCKET: "~iac:anyway_full_db_dumps_bucket~"
 DBDUMP_PARTIAL_BUCKET: "~iac:anyway_partial_db_dumps_bucket~"
 dbPvcName: "db2"
 
-# we are pinning the DB versions so that we can migrate to newer DB version manually
+# we are pinning the DB versions so they won't be upgraded automatically
+# these builds are from this commit - https://github.com/hasadna/anyway/commit/6dfd43b
 pinDbImage: docker.pkg.github.com/hasadna/anyway/db:sha-6dfd43b
 pinDbBackupImage: docker.pkg.github.com/hasadna/anyway/db_backup:sha-6dfd43b
 
