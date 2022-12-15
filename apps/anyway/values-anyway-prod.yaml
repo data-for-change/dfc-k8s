@@ -9,7 +9,7 @@ secondariesResources: '{"requests": {"cpu": "100m", "memory": "1000Mi"}, "limits
 dbResources: '{"requests": {"cpu": "25m", "memory": "2062Mi"}, "limits": {"cpu": "165m", "memory": "3500Mi"}}'
 nginxResources: '{"requests": {"cpu": "25m", "memory": "256Mi"}, "limits": {"cpu": "78m", "memory": "500Mi"}}'
 DBDUMP_S3_FILE_PREFIX: ""
-dbBackupEnabled: false
+dbBackupEnabled: true
 dbBackupResources: '{"requests": {"cpu": "25m", "memory": "700Mi"}, "limits": {"cpu": "165m", "memory": "1000Mi"}}'
 dbBackupSchedule: "10 0 * * *"
 enableLogs: true
