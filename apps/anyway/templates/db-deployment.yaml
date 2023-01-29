@@ -45,8 +45,18 @@ spec:
           mountPath: /var/lib/postgresql/data
           # postgres doesn't let you use the root of a disk (it complaints about having lost+found directory)
           subPath: dbdata
+      {{- if .Values.dbShmSize }}
+        - name: dshm
+          mountPath: /dev/shm
+      {{- end }}
       volumes:
       - name: data
         persistentVolumeClaim:
           claimName: {{ .Values.dbPvcName | quote }}
+      {{- if .Values.dbShmSize }}
+      - name: dshm
+        emptyDir:
+          medium: Memory
+          sizeLimit: {{ .Values.dbShmSize | quote }}
+      {{- end }}
 {{ end }}
