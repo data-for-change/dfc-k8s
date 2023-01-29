@@ -6,8 +6,8 @@ nginxForwardedScheme: "https"
 mountGoogleApplicationCredentialsSecret: true
 mainResources: '{"requests": {"cpu": "100m", "memory": "1000Mi"}, "limits": {"cpu": "150m", "memory": "1500Mi"}}'
 secondariesResources: '{"requests": {"cpu": "100m", "memory": "1000Mi"}, "limits": {"cpu": "150m", "memory": "1500Mi"}}'
-dbResources: '{"requests": {"cpu": "25m", "memory": "2062Mi"}, "limits": {"cpu": "165m", "memory": "3500Mi"}}'
-dbShmSize: ""
+dbResources: '{"requests": {"cpu": "500m", "memory": "3000Mi"}, "limits": {"cpu": "1000m", "memory": "4000Mi"}}'
+dbShmSize: "1024Mi"
 nginxResources: '{"requests": {"cpu": "25m", "memory": "256Mi"}, "limits": {"cpu": "78m", "memory": "500Mi"}}'
 DBDUMP_S3_FILE_PREFIX: ""
 dbBackupEnabled: true
