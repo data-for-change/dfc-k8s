@@ -9,13 +9,7 @@ selenium-grid:
       nginx.ingress.kubernetes.io/auth-secret-type: auth-map
   chromeNode:
     enabled: true
-    replicas: 1
-    resources:
-      requests:
-        cpu: 300m
-        memory: 1500Mi
-      limits:
-        memory: 2000Mi
+    deploymentEnabled: false
   firefoxNode:
     enabled: false
   edgeNode:

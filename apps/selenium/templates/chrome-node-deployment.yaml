@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: selenium-chrome-node
+  labels:
+    app: selenium-chrome-node
+    app.kubernetes.io/instance: selenium
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: selenium-chrome-node
+      app.kubernetes.io/instance: selenium
+  template:
+    metadata:
+      labels:
+        app: selenium-chrome-node
+        app.kubernetes.io/instance: selenium
+    spec:
+      volumes:
+        - name: dshm
+          emptyDir:
+            medium: Memory
+            sizeLimit: 1Gi
+      containers:
+        - name: selenium-chrome-node
+          image: selenium/node-chrome:4.8.3-20230403
+          ports:
+            - containerPort: 5555
+              protocol: TCP
+          envFrom:
+            - configMapRef:
+                name: selenium-event-bus-config
+          resources:
+            requests:
+              cpu: 300m
+              memory: 1500Mi
+            limits:
+              memory: 2000Mi
+          volumeMounts:
+            - name: dshm
+              mountPath: /dev/shm
+      terminationGracePeriodSeconds: 30
