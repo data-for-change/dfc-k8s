@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: selenium-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/auth-secret: hub-auth
+    nginx.ingress.kubernetes.io/auth-secret-type: auth-map
+    nginx.ingress.kubernetes.io/auth-type: basic
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: selenium.dataforchange.org.il
+      http:
+        paths:
+          - path: /tempdata
+            pathType: Prefix
+            backend:
+              service:
+                name: chrome-node-nginx
+                port:
+                  number: 80
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: selenium-hub
+                port:
+                  number: 4444

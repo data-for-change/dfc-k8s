@@ -1,6 +1,6 @@
 selenium-grid:
   ingress:
-    enabled: true
+    enabled: false
     className: nginx
     hostname: selenium.dataforchange.org.il
     annotations:

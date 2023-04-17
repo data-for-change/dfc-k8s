@@ -7,7 +7,7 @@ data:
       server {
         listen       80;
         server_name  localhost;
-        location / {
+        location /tempdata {
           root /var/selenium/tempdata;
           index index.html index.htm;
           autoindex on;
