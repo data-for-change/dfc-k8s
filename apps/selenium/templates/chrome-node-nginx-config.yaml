@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: chrome-node-nginx-config
+data:
+    default.conf: |
+      server {
+        listen       80;
+        server_name  localhost;
+        location / {
+          root /var/selenium/tempdata;
+          index index.html index.htm;
+          autoindex on;
+        }
+      }
