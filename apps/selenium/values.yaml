@@ -3,6 +3,10 @@ selenium-grid:
     enabled: true
     className: nginx
     hostname: selenium.dataforchange.org.il
+    annotations:
+      nginx.ingress.kubernetes.io/auth-type: basic
+      nginx.ingress.kubernetes.io/auth-secret: hub-auth
+      nginx.ingress.kubernetes.io/auth-secret-type: auth-map
   chromeNode:
     enabled: true
     replicas: 1
@@ -16,3 +20,8 @@ selenium-grid:
     enabled: false
   edgeNode:
     enabled: false
+
+secrets:
+  - name: hub-auth
+    data:
+      gWHSinCXIPQLk: "~vault:projects/k8s/selenium/secrets:hub-password-htpasswd~"
