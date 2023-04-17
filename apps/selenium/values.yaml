@@ -1,12 +1,6 @@
 selenium-grid:
   ingress:
     enabled: false
-    className: nginx
-    hostname: selenium.dataforchange.org.il
-    annotations:
-      nginx.ingress.kubernetes.io/auth-type: basic
-      nginx.ingress.kubernetes.io/auth-secret: hub-auth
-      nginx.ingress.kubernetes.io/auth-secret-type: auth-map
   chromeNode:
     enabled: true
     deploymentEnabled: false
