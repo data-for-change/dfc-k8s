@@ -7,8 +7,8 @@ data:
       server {
         listen       80;
         server_name  localhost;
-        location /tempdata {
-          root /var/selenium/tempdata;
+        location /tempdata/ {
+          root /var/selenium/tempdata/;
           index index.html index.htm;
           autoindex on;
           autoindex_format json;
