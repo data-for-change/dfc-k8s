@@ -1,0 +1,12 @@
+selenium-grid:
+  ingress:
+    enabled: true
+    className: nginx
+    hostname: selenium.dataforchange.org.il
+  chromeNode:
+    enabled: true
+    replicas: 1
+  firefoxNode:
+    enabled: false
+  edgeNode:
+    enabled: false
