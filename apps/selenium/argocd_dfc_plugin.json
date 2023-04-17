@@ -1,0 +1,5 @@
+{
+  "init_helm_repos": {
+    "docker-selenium": "https://www.selenium.dev/docker-selenium"
+  }
+}
