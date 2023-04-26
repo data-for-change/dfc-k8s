@@ -7,6 +7,6 @@ etlImage: docker.pkg.github.com/hasadna/anyway-etl/anyway-etl:55a7c1ddb4610b2f75
 etlNginxImage: ghcr.io/data-for-change/anyway-etl/anyway-etl-nginx:v0.0.41
 etlNginxImageDev: ghcr.io/data-for-change/anyway-etl/anyway-etl-nginx:0b0fac321384f1d8d50e67f60fcd0784172ec84d
 image: docker.pkg.github.com/data-for-change/anyway/anyway:sha-5d62c04
-imageDev: docker.pkg.github.com/data-for-change/anyway/anyway:sha-68ad7d1
+imageDev: docker.pkg.github.com/data-for-change/anyway/anyway:sha-033c0ec
 nginxImage: docker.pkg.github.com/data-for-change/anyway/nginx:sha-5d62c04
-nginxImageDev: docker.pkg.github.com/data-for-change/anyway/nginx:sha-68ad7d1
+nginxImageDev: docker.pkg.github.com/data-for-change/anyway/nginx:sha-033c0ec
