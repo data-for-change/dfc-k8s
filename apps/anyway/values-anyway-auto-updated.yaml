@@ -1,10 +1,10 @@
-airflowImage: ghcr.io/data-for-change/anyway-etl/anyway-etl-airflow:v0.0.44
+airflowImage: ghcr.io/data-for-change/anyway-etl/anyway-etl-airflow:v0.0.45
 airflowImageDev: ghcr.io/data-for-change/anyway-etl/anyway-etl-airflow:225fe3134fca78acd33dbd5f11c1609585bb5758
 anywayReportsImage: docker.pkg.github.com/data-for-change/anyway-reports/anyway-reports:sha-d28007a
 dbBackupImage: docker.pkg.github.com/data-for-change/anyway/db_backup:sha-b8b5b6c
 dbImage: docker.pkg.github.com/data-for-change/anyway/db:sha-b8b5b6c
 etlImage: docker.pkg.github.com/hasadna/anyway-etl/anyway-etl:55a7c1ddb4610b2f75f88db8615f373b62c9f226
-etlNginxImage: ghcr.io/data-for-change/anyway-etl/anyway-etl-nginx:v0.0.44
+etlNginxImage: ghcr.io/data-for-change/anyway-etl/anyway-etl-nginx:v0.0.45
 etlNginxImageDev: ghcr.io/data-for-change/anyway-etl/anyway-etl-nginx:225fe3134fca78acd33dbd5f11c1609585bb5758
 image: docker.pkg.github.com/data-for-change/anyway/anyway:sha-b8b5b6c
 imageDev: docker.pkg.github.com/data-for-change/anyway/anyway:sha-52be8a1
