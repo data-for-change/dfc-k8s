@@ -18,5 +18,3 @@ data:
     set -e
     usermod -u 1200 nginx
     groupmod -g 1201 nginx
-    chown -R nginx:nginx /var/selenium/tempdata
-    chown -R nginx:nginx /etc/nginx
