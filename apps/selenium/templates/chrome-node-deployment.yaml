@@ -27,7 +27,7 @@ spec:
         - name: nginxconf
           configMap:
             name: chrome-node-nginx-config
-          defaultMode: 0777
+            defaultMode: 0777
       initContainers:
         - name: init-tempdata
           image: alpine
