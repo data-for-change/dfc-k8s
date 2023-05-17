@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: chrome-node-nginx-config
 data:
-    default.conf: |
+  default.conf: |
       server {
         listen       80;
         server_name  localhost;
@@ -13,3 +13,10 @@ data:
           autoindex_format json;
         }
       }
+  setuser.sh: |
+    #!/bin/sh
+    set -e
+    usermod -u 1200 nginx
+    groupmod -g 1201 nginx
+    chown -R nginx:nginx /var/selenium/tempdata
+    chown -R nginx:nginx /etc/nginx

@@ -68,4 +68,7 @@ spec:
             - name: nginxconf
               mountPath: /etc/nginx/conf.d/default.conf
               subPath: default.conf
+            - name: nginxconf
+              mountPath: /docker-entrypoint.d/99-setuser.sh
+              subPath: setuser.sh
       terminationGracePeriodSeconds: 30
