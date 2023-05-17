@@ -27,6 +27,18 @@ spec:
         - name: nginxconf
           configMap:
             name: chrome-node-nginx-config
+      initContainers:
+        - name: init-tempdata
+          image: alpine
+          command:
+            - sh
+            - -c
+            - |
+              apk update && apk add acl &&\
+              setfacl -d -m o::r-x /var/selenium/tempdata/
+          volumeMounts:
+            - name: tempdata
+              mountPath: /var/selenium/tempdata
       containers:
         - name: selenium-chrome-node
           image: selenium/node-chrome:4.8.3-20230403
