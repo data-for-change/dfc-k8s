@@ -58,6 +58,8 @@ spec:
               valueFrom: {"secretKeyRef": {"name": "anyway", "key": "ANYWAY_ETL_ALERT_EMAILS" }}
             - name: AIRFLOW__WEBSERVER__BASE_URL
               value: {{ .Values.AIRFLOW__WEBSERVER__BASE_URL | quote }}
+            - name: AIRFLOW__API__AUTH_BACKENDS
+              value: "airflow.api.auth.backend.basic_auth"
           volumeMounts:
             - name: airflow-home
               mountPath: /var/airflow
