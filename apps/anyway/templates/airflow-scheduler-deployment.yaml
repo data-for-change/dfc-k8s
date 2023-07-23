@@ -46,6 +46,8 @@ spec:
               value: "airflow.utils.email.send_email_smtp"
             - name: AIRFLOW__SMTP__SMTP_HOST
               valueFrom: {"secretKeyRef": {"name": "anyway", "key": "AIRFLOW__SMTP__SMTP_HOST" }}
+            - name: AIRFLOW__SMTP__SMTP_PORT
+              valueFrom: {"secretKeyRef": {"name": "anyway", "key": "AIRFLOW__SMTP__SMTP_PORT" }}
             - name: AIRFLOW__SMTP__SMTP_MAIL_FROM
               value: {{ .Values.AIRFLOW__SMTP__SMTP_MAIL_FROM }}
             - name: AIRFLOW__SMTP__SMTP_USER
