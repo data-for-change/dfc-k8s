@@ -113,6 +113,10 @@ secrets:
       TWITTER_ACCESS_SECRET: "~vault:projects/anyway/prod/k8s-secret-anyway:TWITTER_ACCESS_SECRET~"
       TWITTER_CONSUMER_KEY: "~vault:projects/anyway/prod/k8s-secret-anyway:TWITTER_CONSUMER_KEY~"
       TWITTER_CONSUMER_SECRET: "~vault:projects/anyway/prod/k8s-secret-anyway:TWITTER_CONSUMER_SECRET~"
+      SELENIUM_URL: "~vault:projects/anyway/prod/k8s-secret-anyway:SELENIUM_URL~"
+      BOT_TOKEN: "~vault:projects/anyway/prod/k8s-secret-anyway:BOT_TOKEN~"
+      AIRFLOW_USER: "~vault:projects/anyway/prod/k8s-secret-anyway:AIRFLOW_USER~"
+      AIRFLOW_PASSWORD: "~vault:projects/anyway/prod/k8s-secret-anyway:AIRFLOW_PASSWORD~"
   - name: anyway-db
     data:
       DATABASE_URL: "~vault:projects/anyway/prod/k8s-secret-anyway-db:DATABASE_URL~"

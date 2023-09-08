@@ -46,6 +46,8 @@ spec:
               value: "airflow.utils.email.send_email_smtp"
             - name: AIRFLOW__SMTP__SMTP_HOST
               valueFrom: {"secretKeyRef": {"name": "anyway", "key": "AIRFLOW__SMTP__SMTP_HOST" }}
+            - name: AIRFLOW__SMTP__SMTP_PORT
+              valueFrom: {"secretKeyRef": {"name": "anyway", "key": "AIRFLOW__SMTP__SMTP_PORT" }}
             - name: AIRFLOW__SMTP__SMTP_MAIL_FROM
               value: {{ .Values.AIRFLOW__SMTP__SMTP_MAIL_FROM }}
             - name: AIRFLOW__SMTP__SMTP_USER
@@ -83,6 +85,8 @@ spec:
               valueFrom: {"secretKeyRef": {"name":"anyway", "key":"AIRFLOW_ADMIN_PASSWORD"}}
             - name: AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION
               value: {{ .Values.AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION | quote }}
+            - name: AIRFLOW__API__AUTH_BACKENDS
+              value: "airflow.api.auth.backend.basic_auth"
           volumeMounts:
             - name: airflow-home
               mountPath: /var/airflow
