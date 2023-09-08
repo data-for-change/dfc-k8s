@@ -9,10 +9,10 @@ metadata:
     dfc-k8s: main
 
 managedNodeGroups:
-  - name: ng-1
+  - name: ng-2
     # 2 cpu, 16gb ram
     instanceType: r5.large
-    minSize: 2
+    minSize: 3
     desiredCapacity: 3
     maxSize: 3
     availabilityZones: ["eu-central-1b"]

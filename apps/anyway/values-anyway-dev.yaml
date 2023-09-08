@@ -71,6 +71,7 @@ secrets:
       AIRFLOW_DB_POSTGRES_PASSWORD: "~vault:projects/anyway/dev/k8s-secret-anyway:AIRFLOW_DB_POSTGRES_PASSWORD~"
       AIRFLOW_SQLALCHEMY_URL: "~vault:projects/anyway/dev/k8s-secret-anyway:AIRFLOW_SQLALCHEMY_URL~"
       AIRFLOW__SMTP__SMTP_HOST: "~vault:projects/anyway/dev/k8s-secret-anyway:AIRFLOW__SMTP__SMTP_HOST~"
+      AIRFLOW__SMTP__SMTP_PORT: "2525"
       AIRFLOW__SMTP__SMTP_PASSWORD: "~vault:projects/anyway/dev/k8s-secret-anyway:AIRFLOW__SMTP__SMTP_PASSWORD~"
       AIRFLOW__SMTP__SMTP_USER: "~vault:projects/anyway/dev/k8s-secret-anyway:AIRFLOW__SMTP__SMTP_USER~"
       ANYWAY_ETL_ALERT_EMAILS: "~vault:projects/anyway/dev/k8s-secret-anyway:ANYWAY_ETL_ALERT_EMAILS~"
