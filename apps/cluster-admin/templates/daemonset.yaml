@@ -56,6 +56,17 @@ spec:
         securityContext:
           privileged: true
       containers:
+      - name: debug
+        image: busybox:1.26.2
+        command:
+          - sleep
+          - "86400"
+        volumeMounts:
+          - name: hostfs
+            mountPath: /host
+          - name: pullsecret
+            mountPath: "/tmp/config.json"
+            subPath: ".dockerconfigjson"
       - name: pause
         image: busybox:1.26.2
         command: ["sh", "-c", "while true; do sleep 86400; done"]
