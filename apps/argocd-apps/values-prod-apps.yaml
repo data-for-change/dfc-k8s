@@ -1,7 +1,7 @@
 apps:
 
   - name: anyway-prod
-    disableAutoSync: true
+    disableAutoSync: false
     project: anyway
     destinationNamespace: anyway
     source:
