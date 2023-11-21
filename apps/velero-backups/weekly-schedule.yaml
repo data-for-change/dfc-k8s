@@ -1,10 +1,10 @@
 apiVersion: velero.io/v1
 kind: Schedule
 metadata:
-  name: daily
+  name: weekly
   namespace: velero
 spec:
-  schedule: '41 1 * * *'  # 1:41 AM every day
+  schedule: '31 1 * * 0'  # 1:31 AM on Sunday
   template:
     includedNamespaces: ['*']
-    ttl: '48h0m0s'
+    ttl: '336h0m0s'

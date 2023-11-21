@@ -1,10 +1,10 @@
 apiVersion: velero.io/v1
 kind: Schedule
 metadata:
-  name: daily
+  name: monthly
   namespace: velero
 spec:
-  schedule: '41 1 * * *'  # 1:41 AM every day
+  schedule: '31 1 1 * *'  # 1:31 AM on the first of the month
   template:
     includedNamespaces: ['*']
-    ttl: '48h0m0s'
+    ttl: '1440h0m0s'
