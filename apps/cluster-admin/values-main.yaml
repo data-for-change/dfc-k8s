@@ -6,13 +6,7 @@ dockerDaemonConfig:
     "compress": "true"
 
 terraformStateDb:
-  resources:
-    requests:
-      memory: 250Mi
-      cpu: 50m
-    limits:
-      memory: 500Mi
-      cpu: 100m
+  resources: {}
 
 secrets:
   - name: terraform-state-db

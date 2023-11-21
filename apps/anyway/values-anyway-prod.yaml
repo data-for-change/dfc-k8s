@@ -1,17 +1,17 @@
 enabled: true
 enableSecondaries: true
-secondaryReplicas: 2
+secondaryReplicas: 1
 nginxForwardedHost: "www.anyway.co.il"
 nginxForwardedScheme: "https"
 mountGoogleApplicationCredentialsSecret: true
-mainResources: '{"requests": {"cpu": "100m", "memory": "1000Mi"}, "limits": {"cpu": "150m", "memory": "1500Mi"}}'
-secondariesResources: '{"requests": {"cpu": "100m", "memory": "1000Mi"}, "limits": {"cpu": "150m", "memory": "1500Mi"}}'
-dbResources: '{"requests": {"cpu": "500m", "memory": "3000Mi"}, "limits": {"cpu": "1000m", "memory": "4000Mi"}}'
+mainResources: '{"requests": {"cpu": "100m", "memory": "500Mi"}, "limits": {"memory": "1200Mi"}}'
+secondariesResources: '{"requests": {"cpu": "60m", "memory": "500Mi"}, "limits": {"memory": "1000Mi"}}'
+dbResources: '{"requests": {"cpu": "250m", "memory": "3000Mi"}, "limits": {"memory": "4000Mi"}}'
 dbShmSize: "1024Mi"
-nginxResources: '{"requests": {"cpu": "25m", "memory": "256Mi"}, "limits": {"cpu": "78m", "memory": "500Mi"}}'
+nginxResources: '{"requests": {"cpu": "25m", "memory": "100Mi"}, "limits": {"memory": "200Mi"}}'
 DBDUMP_S3_FILE_PREFIX: ""
 dbBackupEnabled: true
-dbBackupResources: '{"requests": {"cpu": "25m", "memory": "700Mi"}, "limits": {"cpu": "165m", "memory": "1000Mi"}}'
+dbBackupResources: '{"requests": {"cpu": "25m", "memory": "400Mi"}, "limits": {"memory": "600Mi"}}'
 dbBackupSchedule: "10 0 * * *"
 enableLogs: true
 dbRestoreBucket: "dfc-anyway-full-db-dumps"
@@ -28,20 +28,20 @@ pinDbBackupImage: docker.pkg.github.com/hasadna/anyway/db_backup:sha-6dfd43b
 reports:
   enabled: true
   replicas: 1
-  resources: '{"requests": {"cpu": "25m", "memory": "256Mi"}, "limits": {"cpu": "78m", "memory": "500Mi"}}'
+  resources: '{"requests": {"cpu": "25m", "memory": "100Mi"}, "limits": {"memory": "200Mi"}}'
 
 enableAirflow: true
 airflowDb:
   # pulled August 8, 2021
   image: "postgres:13@sha256:6647385dd9ae11aa2216bf55c54d126b0a85637b3cf4039ef24e3234113588e3"
-  resources: {"requests": {"cpu": "50m", "memory": "300Mi"}, "limits": {"memory": "700Mi"}}
+  resources: {"requests": {"cpu": "40m", "memory": "300Mi"}, "limits": {"memory": "500Mi"}}
 airflowImage: "docker.pkg.github.com/hasadna/anyway-etl/anyway-etl-airflow:latest"
 airflowScheduler:
-  resources: {"requests": {"cpu": "300m", "memory": "500Mi"}, "limits": {"memory": "1000Mi"}}
+  resources: {"requests": {"cpu": "100m", "memory": "500Mi"}, "limits": {"memory": "800Mi"}}
 airflowWebserver:
-  resources: {"requests": {"cpu": "300m", "memory": "1000Mi"}, "limits": {"memory": "1500Mi"}}
+  resources: {"requests": {"cpu": "50m", "memory": "500Mi"}, "limits": {"memory": "1100Mi"}}
 etlNginxImage: "docker.pkg.github.com/hasadna/anyway-etl/anyway-etl-nginx:latest"
-etlNginxResources: {"requests": {"cpu": "50m", "memory": "100Mi"}, "limits": {"memory": "200Mi"}}
+etlNginxResources: {"requests": {"cpu": "20m", "memory": "50Mi"}, "limits": {"memory": "100Mi"}}
 ANYWAY_ETL_BRANCH: ""
 ANYWAY_ETL_USE_LATEST_TAG: "yes"
 ANYWAY_KUBECTL_NAMESPACE: "anyway"
