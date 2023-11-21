@@ -137,6 +137,7 @@ def generate(chart_path, argocd_app_name, argocd_app_namespace, *helm_args):
     match_values = get_match_values(parsed_matches)
     for match, value in match_values.items():
         yamls = yamls.replace(regex_format.format(match), value)
+    yamls = yamls.replace('docker.pkg.github.com', 'ghcr.io')
     print(yamls)
 
 
