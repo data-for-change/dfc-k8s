@@ -4,19 +4,23 @@ apiVersion: eksctl.io/v1alpha5
 metadata:
   name: main
   region: eu-central-1
-  version: "1.22"
+  version: "1.24"
   tags:
     dfc-k8s: main
 
+addons:
+- name: aws-ebs-csi-driver
+
 managedNodeGroups:
-  - name: ng-2
-    # 2 cpu, 16gb ram
-    instanceType: r5.large
-    minSize: 3
-    desiredCapacity: 3
-    maxSize: 3
+  - name: ng-4
+    # 2 cpu, 8gb ram
+    instanceType: m6a.large
+    minSize: 2
+    desiredCapacity: 2
+    maxSize: 2
     availabilityZones: ["eu-central-1b"]
     volumeSize: 200
     iam:
       withAddonPolicies:
         autoScaler: true
+        ebs: true
