@@ -72,16 +72,17 @@ infra_apps:
     sourceVaultPluginHelmValueFiles:
       - values-main.yaml
 
-  - name: redash
-    disableAutoSync: true
-    project: default
-    destinationNamespace: redash
-    source:
-      repoURL: 'https://github.com/data-for-change/dfc-k8s.git'
-      targetRevision: main
-      path: apps/redash
-    sourceVaultPluginHelmValueFiles:
-      - values.yaml
+# temporarily disabled redash to save resources
+#  - name: redash
+#    disableAutoSync: true
+#    project: default
+#    destinationNamespace: redash
+#    source:
+#      repoURL: 'https://github.com/data-for-change/dfc-k8s.git'
+#      targetRevision: main
+#      path: apps/redash
+#    sourceVaultPluginHelmValueFiles:
+#      - values.yaml
 
   - name: selenium
     disableAutoSync: true
