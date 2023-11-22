@@ -7,4 +7,4 @@ spec:
   schedule: '31 1 1 * *'  # 1:31 AM on the first of the month
   template:
     includedNamespaces: ['*']
-    ttl: '1440h0m0s'
+    ttl: '800h0m0s'
