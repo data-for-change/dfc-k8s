@@ -3,18 +3,18 @@ redashImage: redash/redash:8.0.0.b32245
 redashInitialize: ""
 
 server:
-  resources: {"requests": {"memory": "400Mi"}, "limits": {"memory": "800Mi"}}
-  REDASH_WEB_WORKERS: "2"
+  resources: {"requests": {"memory": "200Mi"}, "limits": {"memory": "400Mi"}}
+  REDASH_WEB_WORKERS: "1"
 
 scheduler:
   resources: {}
 
 scheduledWorker:
-  resources: {"requests": {"memory": "200Mi"}, "limits": {"memory": "400Mi"}}
+  resources: {"requests": {"memory": "100Mi"}, "limits": {"memory": "200Mi"}}
 
 adhocWorker:
-  resources: {"requests": {"memory": "300Mi"}, "limits": {"memory": "700Mi"}}
-  WORKERS_COUNT: 2
+  resources: {"requests": {"memory": "100Mi"}, "limits": {"memory": "200Mi"}}
+  WORKERS_COUNT: 1
 
 redis:
   resources: {}
