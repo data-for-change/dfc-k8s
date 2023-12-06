@@ -1,12 +1,12 @@
 airflowImage: ghcr.io/data-for-change/anyway-etl/anyway-etl-airflow:v0.0.53
 airflowImageDev: ghcr.io/data-for-change/anyway-etl/anyway-etl-airflow:f3ccbd162473f33e05ae0f3ae273210252071dfb
 anywayReportsImage: docker.pkg.github.com/data-for-change/anyway-reports/anyway-reports:sha-ff0aa3b
-dbBackupImage: docker.pkg.github.com/data-for-change/anyway/db_backup:sha-c73b998
-dbImage: docker.pkg.github.com/data-for-change/anyway/db:sha-c73b998
+dbBackupImage: docker.pkg.github.com/data-for-change/anyway/db_backup:sha-6b1174a
+dbImage: docker.pkg.github.com/data-for-change/anyway/db:sha-6b1174a
 etlImage: docker.pkg.github.com/hasadna/anyway-etl/anyway-etl:55a7c1ddb4610b2f75f88db8615f373b62c9f226
 etlNginxImage: ghcr.io/data-for-change/anyway-etl/anyway-etl-nginx:v0.0.53
 etlNginxImageDev: ghcr.io/data-for-change/anyway-etl/anyway-etl-nginx:f3ccbd162473f33e05ae0f3ae273210252071dfb
-image: docker.pkg.github.com/data-for-change/anyway/anyway:sha-c73b998
+image: docker.pkg.github.com/data-for-change/anyway/anyway:sha-6b1174a
 imageDev: docker.pkg.github.com/data-for-change/anyway/anyway:sha-a263185
-nginxImage: docker.pkg.github.com/data-for-change/anyway/nginx:sha-c73b998
+nginxImage: docker.pkg.github.com/data-for-change/anyway/nginx:sha-6b1174a
 nginxImageDev: docker.pkg.github.com/data-for-change/anyway/nginx:sha-a263185
