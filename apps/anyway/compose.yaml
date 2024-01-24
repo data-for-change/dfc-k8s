@@ -34,6 +34,8 @@ services:
     depends_on:
       - anyway-main
     networks: [dfc]
+    # we route all external traffic to the secondary container, to keep the main container free for airflow tasks
+    hostname: anyway
 
   db:
     hostname: anyway-db
