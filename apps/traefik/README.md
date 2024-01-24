@@ -1,0 +1,15 @@
+# Traefik
+
+## Install
+
+Set acme email env var:
+
+```
+export ACME_EMAIL=
+```
+
+Generate template:
+
+```
+envsubst < apps/traefik/traefik.yaml.template > apps/traefik/traefik.yaml
+```

@@ -16,8 +16,10 @@ services:
     networks: [dfc]
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.vault.rule=Host(`vault.dataforchange.org.il`)"
       - "traefik.http.services.vault.loadbalancer.server.port=8200"
+      - "traefik.http.routers.vault.rule=Host(`vault2.dataforchange.org.il`)"
+      - "traefik.http.routers.vault.tls=true"
+      - "traefik.http.routers.vault.tls.certresolver=dfc"
     healthcheck:
       start_period: 60s
       start_interval: 10s
