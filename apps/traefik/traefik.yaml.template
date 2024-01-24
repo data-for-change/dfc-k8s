@@ -8,6 +8,9 @@ entryPoints:
   websecure:
     address: ":443"
 
+log:
+  level: INFO
+
 certificatesResolvers:
   dfc:
     acme:
