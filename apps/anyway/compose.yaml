@@ -88,6 +88,12 @@ services:
     volumes:
       - /data/anyway/airflow-etl-data:/var/anyway-etl-data
     networks: [dfc]
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.airflow-nginx.loadbalancer.server.port=80"
+      - "traefik.http.routers.airflow-nginx.rule=Host(`airflow-data.anyway.co.il`)"
+      # - "traefik.http.routers.airflow-nginx.tls=true"
+      # - "traefik.http.routers.airflow-nginx.tls.certresolver=dfc"
 
   airflow-webserver:
     image: ${AIRFLOW_IMAGE:-ghcr.io/data-for-change/anyway-etl/anyway-etl-airflow:latest}
@@ -102,12 +108,24 @@ services:
     volumes:
       - /data/anyway/airflow-home-data:/var/airflow
     networks: [dfc]
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.airflow-webserver.loadbalancer.server.port=8080"
+      - "traefik.http.routers.airflow-webserver.rule=Host(`airflow.anyway.co.il`)"
+      # - "traefik.http.routers.airflow-webserver.tls=true"
+      # - "traefik.http.routers.airflow-webserver.tls.certresolver=dfc"
 
   reports:
     hostname: anyway-reports
     image: ${REPORTS_IMAGE:-ghcr.io/data-for-change/anyway-reports/anyway-reports:latest}
     restart: unless-stopped
     networks: [dfc]
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.anyway-reports.loadbalancer.server.port=80"
+      - "traefik.http.routers.anyway-reports.rule=Host(`reports.anyway.co.il`)"
+      # - "traefik.http.routers.anyway-reports.tls=true"
+      # - "traefik.http.routers.anyway-reports.tls.certresolver=dfc"
 
   nginx:
     hostname: anyway-nginx
@@ -116,6 +134,12 @@ services:
     volumes:
       - ./nginx_anyway_proxy.conf:/etc/nginx/anyway_proxy.conf:ro
     networks: [dfc]
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.anyway-nginx.loadbalancer.server.port=80"
+      - "traefik.http.routers.anyway-nginx.rule=Host(`www.anyway.co.il`)"
+      # - "traefik.http.routers.anyway-nginx.tls=true"
+      # - "traefik.http.routers.anyway-nginx.tls.certresolver=dfc"
 
 networks:
   dfc:
