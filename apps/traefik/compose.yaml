@@ -5,6 +5,7 @@ services:
       - ./traefik.yaml:/etc/traefik/traefik.yaml:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /data/traefik/acme:/etc/traefik/acme
+      - ./dynamic_conf:/etc/traefik/dynamic_conf
     networks: [dfc]
     ports:
       - "80:80"

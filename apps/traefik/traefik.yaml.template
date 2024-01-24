@@ -1,6 +1,8 @@
 providers:
   docker:
     exposedByDefault: false
+  file:
+    directory: /etc/traefik/dynamic_conf
 
 entryPoints:
   web:
@@ -18,24 +20,3 @@ certificatesResolvers:
       storage: /etc/traefik/acme/acme.json
       httpChallenge:
         entryPoint: web
-
-http:
-  routers:
-    my-router:
-      rule: "Host(`anyway.co.il`, `www.oway.org.il`, `oway.org.il`)"
-      middlewares:
-        - redirect-to-anyway
-      service: dummy-service
-
-  middlewares:
-    redirect-to-anyway:
-      redirectRegex:
-        regex: "(.*)"
-        replacement: "https://www.anyway.co.il"
-        permanent: true
-
-  services:
-    dummy-service:
-      loadBalancer:
-        servers:
-          - url: "http://127.0.0.1"
