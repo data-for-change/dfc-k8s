@@ -14,6 +14,10 @@ services:
     privileged: true
     restart: unless-stopped
     networks: [dfc]
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.vault.rule=Host(`vault.dataforchange.org.il`)"
+      - "traefik.http.services.vault.loadbalancer.server.port=8200"
     healthcheck:
       start_period: 60s
       start_interval: 10s
