@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+cd "apps/${1}"
+shift
+exec docker compose "$@"
