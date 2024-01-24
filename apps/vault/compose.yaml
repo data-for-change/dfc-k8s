@@ -17,7 +17,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.vault.loadbalancer.server.port=8200"
-      - "traefik.http.routers.vault.rule=Host(`vault2.dataforchange.org.il`)"
+      - "traefik.http.routers.vault.rule=Host(`vault.dataforchange.org.il`)"
       - "traefik.http.routers.vault.tls=true"
       - "traefik.http.routers.vault.tls.certresolver=dfc"
     healthcheck:
