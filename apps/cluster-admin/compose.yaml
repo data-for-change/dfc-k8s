@@ -15,3 +15,7 @@ services:
     networks: [dfc]
     ports:
       - "9001:5432"
+
+networks:
+  dfc:
+    external: true
