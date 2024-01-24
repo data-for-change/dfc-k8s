@@ -6,43 +6,41 @@ https://docs.google.com/presentation/d/1bXkcCgsXUr1FQA7hCZdb5_m7IXIiP1UixuOHuV88
 
 ![](image.png)
 
-## Initial Deployment
+## Install
 
-* Create secrets
-  * set env vars with the secret DB values
-    * `POSTGRES_PASSWORD=`
-    * `ANYWAY_PASSWORD=`
-    * `DBRESTORE_AWS_ACCESS_KEY_ID=`
-    * `DBRESTORE_AWS_SECRET_ACCESS_KEY=`
-    * `DBDUMP_AWS_ACCESS_KEY_ID=`
-    * `DBDUMP_AWS_SECRET_ACCESS_KEY=`
-  * create the DB secrets:
-    * `kubectl -n $NAMESPACE_NAME create secret generic anyway-db "--from-literal=DATABASE_URL=postgresql://anyway:${ANYWAY_PASSWORD}@db/anyway"`
-    * `kubectl -n $NAMESPACE_NAME create secret generic db "--from-literal=DBRESTORE_SET_ANYWAY_PASSWORD=${ANYWAY_PASSWORD}" "--from-literal=POSTGRES_PASSWORD=${POSTGRES_PASSWORD}" "--from-literal=DBRESTORE_AWS_ACCESS_KEY_ID=${DBRESTORE_AWS_ACCESS_KEY_ID}" "--from-literal=DBRESTORE_AWS_SECRET_ACCESS_KEY=${DBRESTORE_AWS_SECRET_ACCESS_KEY}"`
-    * `kubectl -n $NAMESPACE_NAME create secret generic db-backup "--from-literal=DBDUMP_AWS_ACCESS_KEY_ID=${DBDUMP_AWS_ACCESS_KEY_ID}" "--from-literal=DBDUMP_AWS_SECRET_ACCESS_KEY=${DBDUMP_AWS_SECRET_ACCESS_KEY}" "--from-literal=DBDUMP_PASSWORD=${POSTGRES_PASSWORD}"`
-  * Create the anyway secret (see the anyway production docker-compose for available values, or leave it empty just for basic testing)
-    * `kubectl -n $NAMESPACE_NAME create secret generic anyway`
+Set env vars for Vault access:
 
-## Deployment
+```
+export VAULT_ADDR=
+export VAULT_TOKEN=
+```
 
-* For local deployment on Minikue - use Helm to deploy this chart with the values file `values-minikube.yaml`
-* For production deployment - Use ArgoCD, see [/docs/argocd.md](/docs/argocd.md) for details.
+Set secret values:
 
-## Enabling the Airflow server
+```
+bin/render_env_template.py apps/anyway-docker/secrets/anyway.env.template > apps/anyway-docker/secrets/anyway.env
+bin/render_env_template.py apps/anyway-docker/secrets/anyway-db.env.template > apps/anyway-docker/secrets/anyway-db.env
+bin/render_env_template.py apps/anyway-docker/secrets/db.env.template > apps/anyway-docker/secrets/db.env
+bin/render_env_template.py apps/anyway-docker/secrets/airflow-db.env.template > apps/anyway-docker/secrets/airflow-db.env
+bin/render_env_template.py apps/anyway-docker/secrets/airflow-scheduler.env.template > apps/anyway-docker/secrets/airflow-scheduler.env
+bin/render_env_template.py apps/anyway-docker/secrets/airflow-webserver.env.template > apps/anyway-docker/secrets/airflow-webserver.env
+vault kv get -format=json kv/projects/anyway/prod/k8s-secret-anyway | jq -r '.data.data["GOOGLE_APPLICATION_CREDENTIALS_KEY.json"]' > apps/anyway-docker/secrets/GOOGLE_APPLICATION_CREDENTIALS_KEY.json
+```
 
-Set the following values in `anyway` secret:
+Run:
 
-* `AIRFLOW_DB_POSTGRES_PASSWORD`: Generate a password (`python3 -c 'import secrets; print(secrets.token_hex(16))'`)
-* `AIRFLOW_SQLALCHEMY_URL`: (replace AIRFLOW_DB_POSTGRES_PASSWORD with the password you generated) `postgresql://postgres:AIRFLOW_DB_POSTGRES_PASSWORD@airflow-db`
-* `AIRFLOW_ADMIN_PASSWORD`: Generate a password (`python3 -c 'import secrets; print(secrets.token_hex(16))'`)
+```
+( cd apps/anyway-docker && docker compose up -d )
+```
 
-Enable airflow by setting `enableAirflow: true` in the relevant environment's values
-
-Deploy
+### TODO: db-backup-cronjob
+### TODO: ingresses
+### TODO: airflow execut via kubectl exec - modify to execute in docker compose
+### TODO: check anyway nginx proxy and configurations - for new docker compose hostnames
 
 ## Enable DB Redash read-only user
 
-Start a shell on DB pod and run the following to start an sql session:
+Start a shell on DB container and run the following to start an sql session:
 
 ```
 su postgres
