@@ -42,12 +42,12 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_DB: postgres
-      DBRESTORE_AWS_BUCKET: dfc-anyway-full-db-dumps
-      DBRESTORE_FILE_NAME: 2024-01-24_anyway.pgdump
+      # DBRESTORE_AWS_BUCKET: dfc-anyway-full-db-dumps
+      # DBRESTORE_FILE_NAME: 2024-01-24_anyway.pgdump
     env_file:
       - ./secrets/db.env
     volumes:
-      - /data/anyway/db:/var/lib/postgresql/data
+      - /data/anyway/db/dbdata:/var/lib/postgresql/data
     tmpfs:
       - /dev/shm:size=1024m
     networks: [dfc]
@@ -60,7 +60,7 @@ services:
     env_file:
       - ./secrets/airflow-db.env
     volumes:
-      - /data/anyway/airflow-db:/var/lib/postgresql/data
+      - /data/anyway/airflow-db/airflow_db:/var/lib/postgresql/data
     networks: [dfc]
 
   airflow-scheduler:
