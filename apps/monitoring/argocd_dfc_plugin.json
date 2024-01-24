@@ -1,5 +1,0 @@
-{
-  "init_helm_repos": {
-    "prometheus-community": "https://prometheus-community.github.io/helm-charts"
-  }
-}

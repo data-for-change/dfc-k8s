@@ -56,6 +56,13 @@ cd ~
 git clone git@github.com:data-for-change/dfc-k8s.git
 git checkout migrate-to-docker-compose
 
+# Set vm.max_map_count
+echo "vm.max_map_count=262144" | sudo tee -a /etc/sysctl.conf
+sudo sysctl -p
+
+# Disable hugepages
+echo "never" | sudo tee /sys/kernel/mm/transparent_hugepage/enabled
+
 # Create dfc docker network
 docker network create dfc
 

@@ -1,0 +1,17 @@
+services:
+  terraform-state-db:
+    image: postgres:14@sha256:b0ee049a2e347f5ec8c64ad225c7edbc88510a9e34450f23c4079a489ce16268
+    command: [
+      -c, "ssl_cert_file=/opt/secured_ssl/server.crt",
+      -c, "ssl_key_file=/opt/secured_ssl/server.key",
+      -c, "ssl=on"
+    ]
+    env_file:
+      - ./secrets/terraform-state-db.env
+    volumes:
+      - ./secrets/state_db_server.crt:/opt/secured_ssl/server.crt:ro
+      - ./secrets/state_db_server.key:/opt/secured_ssl/server.key:ro
+      - /data/terraform-state-db/terraform_state_db_postgres:/var/lib/postgresql/data
+    networks: [dfc]
+    ports:
+      - "9001:5432"

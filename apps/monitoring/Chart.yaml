@@ -1,9 +1,0 @@
-name: monitoring
-version: "0.0.0"
-apiVersion: v2
-
-dependencies:
-  - name: kube-prometheus-stack
-    # # this version should match version defined in apps/argocd-apps/values-prod-infra-apps.yaml
-    version: "39.11.0"
-    repository: "https://prometheus-community.github.io/helm-charts"
