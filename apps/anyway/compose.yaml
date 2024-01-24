@@ -1,0 +1,100 @@
+x-anyway-command: &x-anyway-command
+  ["gunicorn", "-b", "0.0.0.0:5000", "-w", "4", "-t", "120", "anyway:app"]
+
+x-anyway-environment: &x-anyway-environment
+  PROXYFIX_X_FOR: "1"
+  PROXYFIX_X_PROTO: "1"
+  PROXYFIX_X_HOST: "1"
+  GOOGLE_APPLICATION_CREDENTIALS: "/secrets/GOOGLE_APPLICATION_CREDENTIALS_KEY.json"
+
+x-anyway: &x-anyway
+  image: ${ANYWAY_IMAGE:-ghcr.io/data-for-change/anyway/anyway:latest}
+  env_file:
+    - ./secrets/anyway.env
+    - ./secrets/anyway-db.env
+  volumes:
+    - ./secrets/GOOGLE_APPLICATION_CREDENTIALS_KEY.json:/secrets/GOOGLE_APPLICATION_CREDENTIALS_KEY.json:ro
+
+services:
+  anyway-main:
+    <<: *x-anyway
+    command: *x-anyway-command
+    environment: *x-anyway-environment
+    depends_on:
+      - db
+
+  anyway-secondary:
+    <<: *x-anyway
+    entrypoint: *x-anyway-command
+    environment:
+      <<: *x-anyway-environment
+      ALLOW_ALEMBIC_UPGRADE: "no"
+    depends_on:
+      - anyway-main
+
+  db:
+    image: ${PIN_DB_IMAGE:-ghcr.io/hasadna/anyway/db:latest}
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+      DBRESTORE_AWS_BUCKET: dfc-anyway-full-db-dumps
+      DBRESTORE_FILE_NAME: 2024-01-24_anyway.pgdump
+    env_file:
+      - ./secrets/db.env
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    tmpfs:
+      - /dev/shm:size=1024m
+
+  airflow-db:
+    image: postgres:13@sha256:6647385dd9ae11aa2216bf55c54d126b0a85637b3cf4039ef24e3234113588e3
+    env_file:
+      - ./secrets/airflow-db.env
+    volumes:
+      - airflow-db-data:/var/lib/postgresql/data
+
+  airflow-scheduler:
+    image: ${AIRFLOW_IMAGE:-ghcr.io/data-for-change/anyway-etl/anyway-etl-airflow:latest}
+    environment:
+      ANYWAY_ETL_AIRFLOW_ROLE: "scheduler"
+      ANYWAY_ETL_AIRFLOW_PIP_INSTALL_DEPS: "yes"
+      ANYWAY_ETL_BRANCH: ""
+      ANYWAY_ETL_USE_LATEST_TAG: "yes"
+      AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: "False"
+      AIRFLOW__WEBSERVER__BASE_URL: https://airflow.anyway.co.il
+    env_file:
+      - ./secrets/airflow-scheduler.env
+    volumes:
+      - airflow-home:/var/airflow
+      - anyway-etl-data:/var/anyway-etl-data
+
+  airflow-nginx:
+    image: ${ETL_NGINX_IMAGE:-ghcr.io/data-for-change/anyway-etl/anyway-etl-nginx:latest}
+    volumes:
+      - anyway-etl-data:/var/anyway-etl-data
+
+  airflow-webserver:
+    image: ${AIRFLOW_IMAGE:-ghcr.io/data-for-change/anyway-etl/anyway-etl-airflow:latest}
+    environment:
+      ANYWAY_ETL_AIRFLOW_INITIALIZE: "yes"
+      ANYWAY_ETL_AIRFLOW_ROLE: "webserver"
+      AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: "False"
+      AIRFLOW__API__AUTH_BACKENDS: "airflow.api.auth.backend.basic_auth"
+    env_file:
+      - ./secrets/airflow-webserver.env
+    volumes:
+      - airflow-home:/var/airflow
+
+  reports:
+    image: ${REPORTS_IMAGE:-ghcr.io/data-for-change/anyway-reports/anyway-reports:latest}
+
+  nginx:
+    image: ${NGINX_IMAGE:-ghcr.io/data-for-change/anyway/nginx:latest}
+    volumes:
+      - ./nginx_anyway_proxy.conf:/etc/nginx/anyway_proxy.conf:ro
+
+volumes:
+  db-data:
+  airflow-db-data:
+  airflow-home:
+  anyway-etl-data:
