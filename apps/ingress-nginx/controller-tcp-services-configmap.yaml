@@ -1,9 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: controller-tcp-services
-  namespace: ingress-nginx
-data:
-  "9001": "cluster-admin/terraform-state-db:5432"
-  "9002": "anyway/db:5432"
-  "9003": "anyway-dev/db:5432"

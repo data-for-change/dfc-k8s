@@ -35,7 +35,7 @@ Run:
 
 ### TODO: db-backup-cronjob
 ### TODO: ingresses
-### TODO: airflow execut via kubectl exec - modify to execute in docker compose
+### TODO: airflow execute via kubectl exec - modify to execute in docker compose
 ### TODO: check anyway nginx proxy and configurations - for new docker compose hostnames
 
 ## Enable DB Redash read-only user
