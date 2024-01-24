@@ -56,6 +56,9 @@ cd ~
 git clone git@github.com:data-for-change/dfc-k8s.git
 git checkout migrate-to-docker-compose
 
+# Create dfc docker network
+docker network create dfc
+
 # Install the apps according to each app's README.md
 # If the app doesn't have details, just run:
 cd ~/dfc-k8s
