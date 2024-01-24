@@ -1,0 +1,42 @@
+x-image: &x-image "vault@sha256:79d3a9c8b1b6e9b9e7a3ae9c3d9f27422d0455c8924c5ffebcdf1f97652e989e"
+
+services:
+  vault:
+    # Pulled Sep 7, 2022
+    image: *x-image
+    command: [server]
+    environment:
+      VAULT_LOCAL_CONFIG: '{"backend": {"file": {"path": "/var/vault/file"}}, "listener": {"tcp": {"address": "0.0.0.0:8200", "tls_disable": 1}}, "api_addr": "http://127.0.0.1:8200", "ui": true}'
+    env_file:
+      - ./secrets/vault.env
+    volumes:
+      - /data/vault/vaultdata:/var/vault
+    privileged: true
+    restart: unless-stopped
+    networks: [dfc]
+    healthcheck:
+      start_period: 60s
+      start_interval: 10s
+      interval: 5s
+      timeout: 3s
+      retries: 5
+      test:
+        - CMD
+        - sh
+        - -c
+        - |
+          SEALED="$(vault status --address=http://localhost:8200 --format=yaml | grep sealed)" &&\
+          if [ "${SEALED}" == "sealed: true" ]; then
+            for KEY in $UNSEAL_KEYS; do
+              vault operator unseal --address=http://localhost:8200 $KEY
+            done
+            exit 0
+          elif [ "${SEALED}" == "sealed: false" ]; then
+            exit 0
+          else
+            exit 1
+          fi
+
+networks:
+  dfc:
+    external: true

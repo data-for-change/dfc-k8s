@@ -18,19 +18,19 @@ export VAULT_TOKEN=
 Set secret values:
 
 ```
-bin/render_env_template.py apps/anyway-docker/secrets/anyway.env.template > apps/anyway-docker/secrets/anyway.env
-bin/render_env_template.py apps/anyway-docker/secrets/anyway-db.env.template > apps/anyway-docker/secrets/anyway-db.env
-bin/render_env_template.py apps/anyway-docker/secrets/db.env.template > apps/anyway-docker/secrets/db.env
-bin/render_env_template.py apps/anyway-docker/secrets/airflow-db.env.template > apps/anyway-docker/secrets/airflow-db.env
-bin/render_env_template.py apps/anyway-docker/secrets/airflow-scheduler.env.template > apps/anyway-docker/secrets/airflow-scheduler.env
-bin/render_env_template.py apps/anyway-docker/secrets/airflow-webserver.env.template > apps/anyway-docker/secrets/airflow-webserver.env
-vault kv get -format=json kv/projects/anyway/prod/k8s-secret-anyway | jq -r '.data.data["GOOGLE_APPLICATION_CREDENTIALS_KEY.json"]' > apps/anyway-docker/secrets/GOOGLE_APPLICATION_CREDENTIALS_KEY.json
+bin/render_env_template.py apps/anyway/secrets/anyway.env.template > apps/anyway/secrets/anyway.env
+bin/render_env_template.py apps/anyway/secrets/anyway-db.env.template > apps/anyway/secrets/anyway-db.env
+bin/render_env_template.py apps/anyway/secrets/db.env.template > apps/anyway/secrets/db.env
+bin/render_env_template.py apps/anyway/secrets/airflow-db.env.template > apps/anyway/secrets/airflow-db.env
+bin/render_env_template.py apps/anyway/secrets/airflow-scheduler.env.template > apps/anyway/secrets/airflow-scheduler.env
+bin/render_env_template.py apps/anyway/secrets/airflow-webserver.env.template > apps/anyway/secrets/airflow-webserver.env
+vault kv get -format=json kv/projects/anyway/prod/k8s-secret-anyway | jq -r '.data.data["GOOGLE_APPLICATION_CREDENTIALS_KEY.json"]' > apps/anyway/secrets/GOOGLE_APPLICATION_CREDENTIALS_KEY.json
 ```
 
 Run:
 
 ```
-( cd apps/anyway-docker && docker compose up -d )
+( cd apps/anyway && docker compose up -d )
 ```
 
 ### TODO: db-backup-cronjob

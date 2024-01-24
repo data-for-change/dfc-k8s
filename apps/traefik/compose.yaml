@@ -1,0 +1,11 @@
+services:
+  traefik:
+    image: traefik:v2.10.7@sha256:c5181ddf303f1ccfd4bd6d1d9c4867b0500efb6089a0f9ccb16612438f6e934f
+    volumes:
+      - ./traefik.yaml:/etc/traefik/traefik.yaml:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks: [dfc]
+
+networks:
+  dfc:
+    external: true

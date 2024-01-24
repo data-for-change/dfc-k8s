@@ -14,6 +14,8 @@ x-anyway: &x-anyway
     - ./secrets/anyway-db.env
   volumes:
     - ./secrets/GOOGLE_APPLICATION_CREDENTIALS_KEY.json:/secrets/GOOGLE_APPLICATION_CREDENTIALS_KEY.json:ro
+  restart: unless-stopped
+  networks: [dfc]
 
 services:
   anyway-main:
@@ -31,9 +33,12 @@ services:
       ALLOW_ALEMBIC_UPGRADE: "no"
     depends_on:
       - anyway-main
+    networks: [dfc]
 
   db:
+    hostname: anyway-db
     image: ${PIN_DB_IMAGE:-ghcr.io/hasadna/anyway/db:latest}
+    restart: unless-stopped
     environment:
       POSTGRES_USER: postgres
       POSTGRES_DB: postgres
@@ -42,19 +47,23 @@ services:
     env_file:
       - ./secrets/db.env
     volumes:
-      - db-data:/var/lib/postgresql/data
+      - /data/anyway/db:/var/lib/postgresql/data
     tmpfs:
       - /dev/shm:size=1024m
+    networks: [dfc]
 
   airflow-db:
     image: postgres:13@sha256:6647385dd9ae11aa2216bf55c54d126b0a85637b3cf4039ef24e3234113588e3
+    restart: unless-stopped
     env_file:
       - ./secrets/airflow-db.env
     volumes:
-      - airflow-db-data:/var/lib/postgresql/data
+      - /data/anyway/airflow-db:/var/lib/postgresql/data
+    networks: [dfc]
 
   airflow-scheduler:
     image: ${AIRFLOW_IMAGE:-ghcr.io/data-for-change/anyway-etl/anyway-etl-airflow:latest}
+    restart: unless-stopped
     environment:
       ANYWAY_ETL_AIRFLOW_ROLE: "scheduler"
       ANYWAY_ETL_AIRFLOW_PIP_INSTALL_DEPS: "yes"
@@ -65,16 +74,20 @@ services:
     env_file:
       - ./secrets/airflow-scheduler.env
     volumes:
-      - airflow-home:/var/airflow
-      - anyway-etl-data:/var/anyway-etl-data
+      - /data/anyway/airflow-home-data:/var/airflow
+      - /data/anyway/airflow-etl-data:/var/anyway-etl-data
+    networks: [dfc]
 
   airflow-nginx:
     image: ${ETL_NGINX_IMAGE:-ghcr.io/data-for-change/anyway-etl/anyway-etl-nginx:latest}
+    restart: unless-stopped
     volumes:
-      - anyway-etl-data:/var/anyway-etl-data
+      - /data/anyway/airflow-etl-data:/var/anyway-etl-data
+    networks: [dfc]
 
   airflow-webserver:
     image: ${AIRFLOW_IMAGE:-ghcr.io/data-for-change/anyway-etl/anyway-etl-airflow:latest}
+    restart: unless-stopped
     environment:
       ANYWAY_ETL_AIRFLOW_INITIALIZE: "yes"
       ANYWAY_ETL_AIRFLOW_ROLE: "webserver"
@@ -83,18 +96,23 @@ services:
     env_file:
       - ./secrets/airflow-webserver.env
     volumes:
-      - airflow-home:/var/airflow
+      - /data/anyway/airflow-home-data:/var/airflow
+    networks: [dfc]
 
   reports:
+    hostname: anyway-reports
     image: ${REPORTS_IMAGE:-ghcr.io/data-for-change/anyway-reports/anyway-reports:latest}
+    restart: unless-stopped
+    networks: [dfc]
 
   nginx:
+    hostname: anyway-nginx
     image: ${NGINX_IMAGE:-ghcr.io/data-for-change/anyway/nginx:latest}
+    restart: unless-stopped
     volumes:
       - ./nginx_anyway_proxy.conf:/etc/nginx/anyway_proxy.conf:ro
+    networks: [dfc]
 
-volumes:
-  db-data:
-  airflow-db-data:
-  airflow-home:
-  anyway-etl-data:
+networks:
+  dfc:
+    external: true
