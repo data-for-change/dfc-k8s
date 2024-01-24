@@ -25,13 +25,13 @@ services:
         - sh
         - -c
         - |
-          SEALED="\$(vault status --address=http://localhost:8200 --format=yaml | grep sealed)" &&\
-          if [ "\${SEALED}" == "sealed: true" ]; then
-            for KEY in \$UNSEAL_KEYS; do
-              vault operator unseal --address=http://localhost:8200 \$KEY
+          SEALED="$$(vault status --address=http://localhost:8200 --format=yaml | grep sealed)" &&\
+          if [ "$${SEALED}" == "sealed: true" ]; then
+            for KEY in $$UNSEAL_KEYS; do
+              vault operator unseal --address=http://localhost:8200 $$KEY
             done
             exit 0
-          elif [ "\${SEALED}" == "sealed: false" ]; then
+          elif [ "$${SEALED}" == "sealed: false" ]; then
             exit 0
           else
             exit 1
